@@ -2,6 +2,8 @@
 
 A bilingual, responsive static website with separate campaign pages for MPTC, ZPTC, Panchayat, MLA and MP elections. The root URL opens the election selected as active in the YAML configuration; there is no separate campaign hub. Each campaign page has its own photo/video gallery. The gallery becomes public after the updated site and media files are deployed to a public web host.
 
+Links shared from the root or campaign pages use `share-card.png` as their Open Graph and social-card preview. Keep the image available at the public GitHub repository URL used in each page's metadata.
+
 ## Campaign pages
 
 Each election has a separate folder and `index.html` page:
