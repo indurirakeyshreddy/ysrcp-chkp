@@ -174,7 +174,7 @@ body.telugu .hero-place span:last-child { font-family: var(--telugu); letter-spa
 }
 body.telugu .hero h1 { font-family: var(--telugu); font-size: clamp(43px, 6.2vw, 78px); line-height: 1.28; letter-spacing: -.045em; }
 body.telugu[data-election="mptc"] .hero h1 {
-  max-width: 490px; margin: 24px 0 28px; padding: 6px 0;
+  max-width: 490px; margin: 24px 0 38px; padding: 6px 0;
   font-size: clamp(33px, 4.4vw, 52px); line-height: 1.45; letter-spacing: -.035em;
 }
 body[data-election="mptc"] .hero-title-line {
@@ -380,13 +380,35 @@ body.telugu[data-election="mptc"] .campaign-grid h2 {
 }
 .media-card { background: var(--white); min-width: 0; overflow: hidden; border: 1px solid #d7e7f4; border-radius: 13px; box-shadow: 0 7px 20px rgba(4, 56, 102, .1); transition: transform .45s var(--ease-premium), box-shadow .45s ease, border-color .3s ease; }
 .media-card:hover, .media-card:focus-within { transform: translateY(-6px); border-color: var(--green); box-shadow: var(--shadow-card-hover); }
+.media-visual { position: relative; overflow: hidden; isolation: isolate; background: var(--blue); }
+.media-visual::before, .media-visual::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.media-visual::before {
+  opacity: 0; transform: translateX(-115%) skewX(-18deg);
+  background: linear-gradient(110deg, transparent 25%, rgba(255, 255, 255, .3) 48%, transparent 68%);
+}
+.media-visual::after {
+  background: linear-gradient(180deg, rgba(4, 56, 102, .04), transparent 42%, rgba(4, 56, 102, .2));
+  opacity: .58; transition: opacity .65s ease;
+}
 .media-frame { width: 100%; height: 230px; display: block; object-fit: cover; background: var(--blue); }
-img.media-frame { transition: transform .8s var(--ease-premium); }
-.media-card:hover img.media-frame { transform: scale(1.035); }
-.video-shell { position: relative; overflow: hidden; background: var(--blue); }
-video.media-frame { object-fit: contain; background: var(--blue); }
+img.media-frame { filter: saturate(.9) contrast(1.03); transform: scale(1.015); transition: transform 1.1s var(--ease-premium), filter .8s ease; }
+.video-shell { position: relative; }
+video.media-frame { object-fit: contain; background: var(--blue); transform: scale(1); transition: transform 1.1s var(--ease-premium); }
+@media (hover: hover) {
+  .media-card:hover .media-visual::before, .media-card:focus-within .media-visual::before {
+    opacity: 1; animation: media-light-sweep 1.05s var(--ease-premium) both;
+  }
+  .media-card:hover .media-visual::after, .media-card:focus-within .media-visual::after { opacity: 1; }
+  .media-card:hover img.media-frame, .media-card:focus-within img.media-frame {
+    filter: saturate(1.08) contrast(1.04); transform: scale(1.075);
+  }
+  .media-card:hover video.media-frame, .media-card:focus-within video.media-frame { transform: scale(1.025); }
+}
+@keyframes media-light-sweep {
+  to { transform: translateX(115%) skewX(-18deg); }
+}
 .video-controls {
-  position: absolute; left: 14px; bottom: 14px; z-index: 1;
+  position: absolute; left: 14px; bottom: 14px; z-index: 2;
   display: flex; gap: 7px; padding: 6px;
   border: 1px solid rgba(255, 255, 255, .45); border-radius: 12px;
   background: rgba(7, 86, 164, .94);
@@ -494,6 +516,16 @@ body.telugu .presenter-intro-label, body.telugu .presenter-intro-card strong { f
 .reveal-enabled .reveal-item.is-visible { opacity: 1; transform: translateY(0); }
 .reveal-enabled .media-card:nth-of-type(2) { transition-delay: .1s; }
 .reveal-enabled .media-card:nth-of-type(3) { transition-delay: .2s; }
+.reveal-enabled .media-card {
+  filter: blur(4px);
+  transform: translateY(28px) scale(.97);
+  transition: opacity .75s ease, transform .8s var(--ease-premium), filter .8s ease, box-shadow .45s ease, border-color .3s ease;
+  transition-delay: calc(var(--reveal-order, 0) * 65ms);
+}
+.reveal-enabled .media-card.is-visible { filter: blur(0); transform: translateY(0) scale(1); }
+.reveal-enabled .media-card.is-visible:hover, .reveal-enabled .media-card.is-visible:focus-within {
+  transform: translateY(-6px) scale(1);
+}
 .reveal-enabled .election-card {
   transition: opacity .75s ease, transform .75s var(--ease-premium),
     background-color .32s ease, border-color .32s ease, color .32s ease, box-shadow .32s ease;
@@ -574,7 +606,7 @@ body.telugu .presenter-intro-label, body.telugu .presenter-intro-card strong { f
   .hero h1 { font-size: clamp(48px, 13vw, 68px); }
   body.telugu .hero h1 { font-size: clamp(40px, 10.5vw, 58px); }
   body.telugu[data-election="mptc"] .hero h1 {
-    max-width: 100%; margin: 22px 0 26px; padding: 5px 0;
+    max-width: 100%; margin: 22px 0 34px; padding: 5px 0;
     font-size: clamp(29px, 7.2vw, 39px); line-height: 1.45;
   }
   .hero-intro { max-width: 440px; font-size: 15px; line-height: 1.75; }
@@ -665,4 +697,5 @@ body.telugu .presenter-intro-label, body.telugu .presenter-intro-card strong { f
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
+  .reveal-enabled .media-card { transition-delay: 0s !important; }
 }

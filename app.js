@@ -246,7 +246,7 @@ function renderGallery() {
   emptyState.hidden = orderedItems.length > 0;
 
   let currentGroup = "";
-  orderedItems.forEach((item) => {
+  orderedItems.forEach((item, index) => {
     if (item.type !== currentGroup) {
       currentGroup = item.type;
       const heading = document.createElement("h3");
@@ -259,6 +259,7 @@ function renderGallery() {
 
     const card = document.createElement("article");
     card.className = "media-card";
+    card.style.setProperty("--reveal-order", String(index % 6));
     if (revealObserver) {
       card.classList.add("reveal-item");
       revealObserver.observe(card);
@@ -288,7 +289,7 @@ function renderGallery() {
         });
       };
       const videoShell = document.createElement("div");
-      videoShell.className = "video-shell";
+      videoShell.className = "media-visual video-shell";
       const controls = document.createElement("div");
       controls.className = "video-controls";
       const playButton = document.createElement("button");
@@ -364,6 +365,10 @@ function renderGallery() {
     } else {
       media.alt = item.title || "YSRCP CHKP campaign";
       media.loading = "lazy";
+      const imageShell = document.createElement("div");
+      imageShell.className = "media-visual";
+      imageShell.append(media);
+      mediaDisplay = imageShell;
     }
     media.addEventListener("error", () => {
       console.error(`Unable to load campaign media: ${item.src}`);
