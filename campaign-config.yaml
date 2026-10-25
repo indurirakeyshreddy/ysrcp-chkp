@@ -1,0 +1,51 @@
+# Change this value to choose the campaign opened at the website root.
+activeElection: mptc
+
+electionOrder:
+  - panchayat
+  - mptc
+  - zptc
+  - mla
+  - mp
+
+elections:
+  panchayat:
+    enabled: 1
+    label:
+      en: "PANCHAYATI"
+      te: "పంచాయతీ"
+    description:
+      en: "Gram Panchayat campaign"
+      te: "గ్రామ పంచాయతీ ప్రచారం"
+  mptc:
+    enabled: 1
+    label:
+      en: "MPTC"
+      te: "ఎం.పి.టి.సి."
+    description:
+      en: "Village & mandal campaign"
+      te: "గ్రామ, మండల ప్రచారం"
+  zptc:
+    enabled: 0
+    label:
+      en: "ZPTC"
+      te: "జెడ్.పి.టి.సి."
+    description:
+      en: "Zilla Parishad campaign"
+      te: "జిల్లా పరిషత్ ప్రచారం"
+  mla:
+    enabled: 0
+    label:
+      en: "MLA"
+      te: "ఎం.ఎల్.ఎ."
+    description:
+      en: "Assembly campaign"
+      te: "శాసనసభ ప్రచారం"
+  mp:
+    enabled: 0
+    label:
+      en: "MP"
+      te: "ఎం.పి."
+    description:
+      en: "Parliament campaign"
+      te: "పార్లమెంటు ప్రచారం"
