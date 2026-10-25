@@ -21,23 +21,23 @@ elections:
     enabled: 1
     label:
       en: "MPTC"
-      te: "ఎం.పి.టి.సి."
+      te: "మండల పరిషత్ ప్రాదేశిక నియోజకవర్గం"
     description:
       en: "Village & mandal campaign"
-      te: "గ్రామ, మండల ప్రచారం"
+      te: "మండల పరిషత్ ప్రాదేశిక నియోజకవర్గం ప్రచారం"
   zptc:
     enabled: 0
     label:
       en: "ZPTC"
-      te: "జెడ్.పి.టి.సి."
+      te: "జిల్లా పరిషత్ ప్రాదేశిక నియోజకవర్గం"
     description:
       en: "Zilla Parishad campaign"
-      te: "జిల్లా పరిషత్ ప్రచారం"
+      te: "జిల్లా పరిషత్ ప్రాదేశిక నియోజకవర్గం ప్రచారం"
   mla:
     enabled: 0
     label:
       en: "MLA"
-      te: "ఎం.ఎల్.ఎ."
+      te: "శాసనసభ"
     description:
       en: "Assembly campaign"
       te: "శాసనసభ ప్రచారం"
@@ -45,7 +45,7 @@ elections:
     enabled: 0
     label:
       en: "MP"
-      te: "ఎం.పి."
+      te: "పార్లమెంటు"
     description:
       en: "Parliament campaign"
       te: "పార్లమెంటు ప్రచారం"

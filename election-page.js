@@ -12,15 +12,15 @@ const elections = {
       about: "Updates for the CHKP ZPTC campaign, gathered in one public place."
     },
     te: {
-      label: "జెడ్.పి.టి.సి.",
-      subtitle: "జెడ్.పి.టి.సి. ప్రచారం",
+      label: "జిల్లా పరిషత్ ప్రాదేశిక నియోజకవర్గం",
+      subtitle: "జిల్లా పరిషత్ ప్రాదేశిక నియోజకవర్గం ప్రచారం",
       title: "జిల్లా పరిషత్<br>ప్రచారం.",
-      intro: "చి.హెచ్.కె.పి. జెడ్.పి.టి.సి. ప్రచార సమాచారం, కార్యక్రమాలు, మీడియా విశేషాలు.",
-      role: "వై.ఎస్.ఆర్.సి.పి. · జెడ్.పి.టి.సి.",
+      intro: "సి.హెచ్.కె.పి. జిల్లా పరిషత్ ప్రాదేశిక నియోజకవర్గం ప్రచార సమాచారం, కార్యక్రమాలు, మీడియా విశేషాలు.",
+      role: "వై.ఎస్.ఆర్.సి.పి. · జిల్లా పరిషత్ ప్రాదేశిక నియోజకవర్గం",
       candidate: "అభ్యర్థి వివరాలు త్వరలో",
       candidateDescription: "అధికారిక అభ్యర్థి వివరాలు నిర్ధారణ తర్వాత చేర్చబడతాయి.",
-      gallery: "జెడ్.పి.టి.సి. ప్రచార క్షణాలు",
-      about: "చి.హెచ్.కె.పి. జెడ్.పి.టి.సి. ప్రచార విశేషాలన్నీ ఒకే పబ్లిక్ వేదికపై."
+      gallery: "జిల్లా పరిషత్ ప్రాదేశిక నియోజకవర్గం ప్రచార క్షణాలు",
+      about: "సి.హెచ్.కె.పి. జిల్లా పరిషత్ ప్రాదేశిక నియోజకవర్గం ప్రచార విశేషాలన్నీ ఒకే పబ్లిక్ వేదికపై."
     }
   },
   panchayat: {
@@ -39,12 +39,12 @@ const elections = {
       label: "పంచాయతీ",
       subtitle: "పంచాయతీ ప్రచారం",
       title: "గ్రామ పంచాయతీ<br>ప్రచారం.",
-      intro: "చి.హెచ్.కె.పి. గ్రామ పంచాయతీ ప్రచార సమాచారం, కార్యక్రమాలు, మీడియా విశేషాలు.",
+      intro: "సి.హెచ్.కె.పి. గ్రామ పంచాయతీ ప్రచార సమాచారం, కార్యక్రమాలు, మీడియా విశేషాలు.",
       role: "వై.ఎస్.ఆర్.సి.పి. · పంచాయతీ",
       candidate: "అభ్యర్థి వివరాలు త్వరలో",
       candidateDescription: "అధికారిక అభ్యర్థి వివరాలు నిర్ధారణ తర్వాత చేర్చబడతాయి.",
       gallery: "పంచాయతీ ప్రచార క్షణాలు",
-      about: "చి.హెచ్.కె.పి. గ్రామ పంచాయతీ ప్రచార విశేషాలన్నీ ఒకే పబ్లిక్ వేదికపై."
+      about: "సి.హెచ్.కె.పి. గ్రామ పంచాయతీ ప్రచార విశేషాలన్నీ ఒకే పబ్లిక్ వేదికపై."
     }
   },
   mla: {
@@ -60,15 +60,15 @@ const elections = {
       about: "Updates for the CHKP Assembly campaign, gathered in one public place."
     },
     te: {
-      label: "ఎం.ఎల్.ఎ.",
+      label: "శాసనసభ",
       subtitle: "శాసనసభ ప్రచారం",
       title: "శాసనసభ<br>ప్రచారం.",
-      intro: "చి.హెచ్.కె.పి. శాసనసభ ప్రచార సమాచారం, కార్యక్రమాలు, మీడియా విశేషాలు.",
-      role: "వై.ఎస్.ఆర్.సి.పి. · ఎం.ఎల్.ఎ.",
+      intro: "సి.హెచ్.కె.పి. శాసనసభ ప్రచార సమాచారం, కార్యక్రమాలు, మీడియా విశేషాలు.",
+      role: "వై.ఎస్.ఆర్.సి.పి. · శాసనసభ",
       candidate: "అభ్యర్థి వివరాలు త్వరలో",
       candidateDescription: "అధికారిక అభ్యర్థి వివరాలు నిర్ధారణ తర్వాత చేర్చబడతాయి.",
       gallery: "శాసనసభ ప్రచార క్షణాలు",
-      about: "చి.హెచ్.కె.పి. శాసనసభ ప్రచార విశేషాలన్నీ ఒకే పబ్లిక్ వేదికపై."
+      about: "సి.హెచ్.కె.పి. శాసనసభ ప్రచార విశేషాలన్నీ ఒకే పబ్లిక్ వేదికపై."
     }
   },
   mp: {
@@ -84,15 +84,15 @@ const elections = {
       about: "Updates for the CHKP Parliament campaign, gathered in one public place."
     },
     te: {
-      label: "ఎం.పి.",
+      label: "పార్లమెంటు",
       subtitle: "పార్లమెంటు ప్రచారం",
       title: "పార్లమెంటు<br>ప్రచారం.",
-      intro: "చి.హెచ్.కె.పి. పార్లమెంటు ప్రచార సమాచారం, కార్యక్రమాలు, మీడియా విశేషాలు.",
-      role: "వై.ఎస్.ఆర్.సి.పి. · ఎం.పి.",
+      intro: "సి.హెచ్.కె.పి. పార్లమెంటు ప్రచార సమాచారం, కార్యక్రమాలు, మీడియా విశేషాలు.",
+      role: "వై.ఎస్.ఆర్.సి.పి. · పార్లమెంటు",
       candidate: "అభ్యర్థి వివరాలు త్వరలో",
       candidateDescription: "అధికారిక అభ్యర్థి వివరాలు నిర్ధారణ తర్వాత చేర్చబడతాయి.",
       gallery: "పార్లమెంటు ప్రచార క్షణాలు",
-      about: "చి.హెచ్.కె.పి. పార్లమెంటు ప్రచార విశేషాలన్నీ ఒకే పబ్లిక్ వేదికపై."
+      about: "సి.హెచ్.కె.పి. పార్లమెంటు ప్రచార విశేషాలన్నీ ఒకే పబ్లిక్ వేదికపై."
     }
   }
 };
@@ -119,7 +119,7 @@ document.querySelector(".brand-copy small").textContent = election.te.subtitle;
 content.innerHTML = `
   <section class="hero" id="home">
     <div class="hero-content">
-      <p class="eyebrow"><span class="eyebrow-line"></span>${translation(`YSRCP · CHKP · ${election.en.label}`, `వై.ఎస్.ఆర్.సి.పి. · చి.హెచ్.కె.పి. · ${election.te.label}`)}</p>
+      <p class="eyebrow"><span class="eyebrow-line"></span>${translation(`YSRCP · CHKP · ${election.en.label}`, `వై.ఎస్.ఆర్.సి.పి. · సి.హెచ్.కె.పి. · ${election.te.label}`)}</p>
       <h1 data-en="${election.en.title}" data-te="${election.te.title}">${election.te.title}</h1>
       <p class="hero-intro" data-en="${election.en.intro}" data-te="${election.te.intro}">${election.te.intro}</p>
       <a class="button button-light" href="#gallery">${translation("Explore campaign updates", "ప్రచార విశేషాలు చూడండి")}<span aria-hidden="true">↘</span></a>
@@ -164,7 +164,7 @@ content.innerHTML = `
   <section class="about-section section-wrap" id="about">
     <div class="about-mark" aria-hidden="true"><svg class="fan-symbol fan-about"><use href="#ceiling-fan-symbol"></use></svg><span data-en="${election.en.label}" data-te="${election.te.label}">${election.te.label}</span></div>
     <div class="about-copy">
-      <div class="section-kicker"><svg class="fan-symbol fan-section" aria-hidden="true"><use href="#ceiling-fan-symbol"></use></svg><span>03</span>${translation("FROM CHKP, FOR EVERYONE", "చి.హెచ్.కె.పి. నుంచి అందరికీ")}</div>
+      <div class="section-kicker"><svg class="fan-symbol fan-section" aria-hidden="true"><use href="#ceiling-fan-symbol"></use></svg><span>03</span>${translation("FROM CHKP, FOR EVERYONE", "సి.హెచ్.కె.పి. నుంచి అందరికీ")}</div>
       <h2 data-en="One place for<br><em>every update.</em>" data-te="ప్రతి విశేషం కోసం<br><em>ఒకే వేదిక.</em>">ప్రతి విశేషం కోసం<br><em>ఒకే వేదిక.</em></h2>
       <p data-en="${election.en.about}" data-te="${election.te.about}">${election.te.about}</p>
       <a class="election-back-link" href="../index.html">${translation("← Campaign home", "← ప్రచార ప్రధాన పేజీ")}</a>

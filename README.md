@@ -20,7 +20,7 @@ Edit `campaign-config.yaml` before publishing:
 
 1. Set `activeElection` to `mptc`, `zptc`, `panchayat`, `mla`, or `mp`. Visiting the root URL opens that election's campaign page directly.
 2. Set an election's `enabled` value to `1` to show its campaign button under the Elections heading, or `0` to hide it.
-3. Use `electionOrder` to change the menu order and update each election's `label` in English (`en`) and Telugu (`te`) to change its menu name.
+3. Use `electionOrder` to change the menu order and update each election's `label` in English (`en`) and Telugu (`te`) to change its menu name. Telugu labels are Panchayat `పంచాయతీ`, MPTC `మండల పరిషత్ ప్రాదేశిక నియోజకవర్గం`, ZPTC `జిల్లా పరిషత్ ప్రాదేశిక నియోజకవర్గం`, MLA `శాసనసభ`, and MP `పార్లమెంటు`.
 4. `activeElection` controls the campaign opened at the site root; `enabled` independently controls whether that campaign link appears in the header.
 
 The selected election page is the site's home page; the root URL reads `activeElection` from the YAML and redirects to that page. The election menu also reads its order, enabled flags, and bilingual labels directly from YAML, without requiring a third-party YAML library. Serve the site over HTTP (for example, with VS Code Live Server), not directly as a `file://` page. This file-based setting is not an online admin dashboard; changes appear publicly after deployment.
