@@ -229,7 +229,7 @@ body.telugu .hero-art-caption { font-family: var(--telugu); letter-spacing: 0; }
 .hero-art-index::before { content: ""; display: inline-block; width: 15px; height: 2px; margin: 0 8px 2px 0; background: var(--green-on-blue); }
 .hero-monogram {
   position: absolute; top: 66%; left: 50%; transform: translate(-50%, -57%);
-  color: var(--white); font-size: 46px; font-weight: 800; letter-spacing: -.1em;
+  color: var(--white); font-size: 46px; font-weight: 800; letter-spacing: .08em;
 }
 .hero-monogram span { color: var(--green-on-blue); }
 .fan-hero {
@@ -391,7 +391,7 @@ body.telugu[data-election="mptc"] .campaign-grid h2 {
   opacity: .58; transition: opacity .65s ease;
 }
 .media-frame { width: 100%; height: 230px; display: block; object-fit: cover; background: var(--blue); }
-img.media-frame { filter: saturate(.9) contrast(1.03); transform: scale(1.015); transition: transform 1.1s var(--ease-premium), filter .8s ease; }
+img.media-frame { transform: scale(1.015); transition: transform 1.1s var(--ease-premium); }
 .video-shell { position: relative; }
 video.media-frame { object-fit: contain; background: var(--blue); transform: scale(1); transition: transform 1.1s var(--ease-premium); }
 @media (hover: hover) {
@@ -399,9 +399,7 @@ video.media-frame { object-fit: contain; background: var(--blue); transform: sca
     opacity: 1; animation: media-light-sweep 1.05s var(--ease-premium) both;
   }
   .media-card:hover .media-visual::after, .media-card:focus-within .media-visual::after { opacity: 1; }
-  .media-card:hover img.media-frame, .media-card:focus-within img.media-frame {
-    filter: saturate(1.08) contrast(1.04); transform: scale(1.075);
-  }
+  .media-card:hover img.media-frame, .media-card:focus-within img.media-frame { transform: scale(1.075); }
   .media-card:hover video.media-frame, .media-card:focus-within video.media-frame { transform: scale(1.025); }
 }
 @keyframes media-light-sweep {
@@ -517,12 +515,11 @@ body.telugu .presenter-intro-label, body.telugu .presenter-intro-card strong { f
 .reveal-enabled .media-card:nth-of-type(2) { transition-delay: .1s; }
 .reveal-enabled .media-card:nth-of-type(3) { transition-delay: .2s; }
 .reveal-enabled .media-card {
-  filter: blur(4px);
   transform: translateY(28px) scale(.97);
-  transition: opacity .75s ease, transform .8s var(--ease-premium), filter .8s ease, box-shadow .45s ease, border-color .3s ease;
+  transition: opacity .75s ease, transform .8s var(--ease-premium), box-shadow .45s ease, border-color .3s ease;
   transition-delay: calc(var(--reveal-order, 0) * 65ms);
 }
-.reveal-enabled .media-card.is-visible { filter: blur(0); transform: translateY(0) scale(1); }
+.reveal-enabled .media-card.is-visible { transform: translateY(0) scale(1); }
 .reveal-enabled .media-card.is-visible:hover, .reveal-enabled .media-card.is-visible:focus-within {
   transform: translateY(-6px) scale(1);
 }

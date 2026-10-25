@@ -173,12 +173,13 @@ function setupPresenterIntro() {
   document.body.append(intro);
 
   const removeIntro = (event) => {
-    if (event.target === intro) {
-      intro.remove();
+    if (event && event.target !== intro) {
+      return;
     }
+    intro.remove();
   };
-  intro.addEventListener("animationend", removeIntro, { once: true });
-  window.setTimeout(removeIntro, 2800);
+  intro.addEventListener("animationend", removeIntro);
+  window.setTimeout(() => removeIntro(), 2800);
 }
 
 function setupScrollReveals() {
@@ -271,7 +272,7 @@ function renderGallery() {
     if (item.type === "video") {
       media.muted = true;
       media.playsInline = true;
-      media.preload = "metadata";
+      media.preload = "none";
       media.setAttribute("aria-label", "Campaign video");
       let lastVideoTap = 0;
       const toggleVideoSound = () => {
@@ -365,6 +366,7 @@ function renderGallery() {
     } else {
       media.alt = item.title || "YSRCP CHKP campaign";
       media.loading = "lazy";
+      media.decoding = "async";
       const imageShell = document.createElement("div");
       imageShell.className = "media-visual";
       imageShell.append(media);
