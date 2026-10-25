@@ -56,7 +56,13 @@ window.campaignMediaByElection = {
     },
     {
       type: "video",
-      src: "mptc/mptc-media/procession-rally/procession-rally-3.mp4",
+      src: "mptc/mptc-media/procession-rally/procession-rally-10.mp4",
+      title: "Campaign rally",
+      titleTe: "ప్రచార ర్యాలీ",
+    },
+    {
+      type: "video",
+      src: "mptc/mptc-media/procession-rally/procession-rally-11.mp4",
       title: "Campaign rally",
       titleTe: "ప్రచార ర్యాలీ",
     },
