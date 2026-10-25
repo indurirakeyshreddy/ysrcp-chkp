@@ -13,9 +13,25 @@
   --paper: var(--white);
   --muted: var(--blue);
   --telugu: "Anek Telugu", sans-serif;
+  --ease-premium: cubic-bezier(.2,.75,.25,1);
+  --shadow-card: 0 12px 32px rgba(7, 86, 164, .12);
+  --shadow-card-hover: 0 22px 48px rgba(7, 86, 164, .2);
+  --radius-card: 16px;
 }
 @keyframes fan-spin {
   to { transform: rotate(360deg); }
+}
+@keyframes submenu-arrive {
+  from { opacity: 0; transform: translateY(-7px) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes presenter-credit-arrive {
+  from { opacity: 0; transform: translateY(16px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes presenter-intro-exit {
+  0%, 68% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; }
 }
 
 * { box-sizing: border-box; }
@@ -50,12 +66,17 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--green); outline
   background: var(--white);
   position: relative;
   z-index: 5;
+  box-shadow: 0 5px 22px rgba(7, 86, 164, .08);
 }
 .brand { display: inline-flex; align-items: center; gap: 11px; }
 .brand-mark {
   width: 39px; height: 39px; display: grid; place-items: center;
   background: var(--green);
+  border-radius: 11px;
+  box-shadow: 0 7px 16px rgba(19, 132, 67, .2);
+  transition: transform .45s var(--ease-premium), box-shadow .45s var(--ease-premium);
 }
+.brand:hover .brand-mark { transform: translateY(-2px) rotate(-4deg); box-shadow: 0 11px 22px rgba(19, 132, 67, .27); }
 .symbol-definitions { position: absolute; width: 0; height: 0; overflow: hidden; }
 .fan-symbol { display: block; overflow: visible; color: var(--green); }
 .fan-stem, .fan-blades, .fan-hub { fill: currentColor; }
@@ -75,15 +96,23 @@ body.telugu .hero-footer, body.telugu .candidate-label, body.telugu .back-top,
 body.telugu .hero-place span:last-child { font-family: var(--telugu); letter-spacing: 0; }
 .main-nav { display: flex; gap: 28px; align-items: center; }
 .main-nav > a, .elections-label {
+  position: relative;
   color: var(--blue); font-size: 12px; font-weight: 600;
-  transition: color .25s ease; cursor: pointer;
+  transition: color .3s ease; cursor: pointer;
 }
-.main-nav a:hover { color: var(--green); }
+.main-nav > a::after, .elections-label::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 7px; height: 2px;
+  background: var(--green); transform: scaleX(0); transform-origin: left;
+  transition: transform .35s var(--ease-premium);
+}
+.main-nav > a:hover, .election-menu:hover > summary { color: var(--green); }
+.main-nav > a:hover::after, .main-nav > a:focus-visible::after, .election-menu:hover > summary::before { transform: scaleX(1); }
 .election-menu { position: relative; }
 .elections-label { white-space: nowrap; }
 .election-menu > summary {
   list-style: none; min-height: 44px; display: flex; align-items: center; gap: 8px;
 }
+.election-menu > summary::before { bottom: 7px; }
 .election-menu > summary::-webkit-details-marker { display: none; }
 .election-menu > summary::after {
   content: ""; width: 7px; height: 7px; border-right: 1.5px solid currentColor;
@@ -94,7 +123,8 @@ body.telugu .hero-place span:last-child { font-family: var(--telugu); letter-spa
 .election-submenu {
   position: absolute; top: calc(100% + 5px); left: -16px; z-index: 10;
   width: max-content; min-width: 190px; padding: 8px; display: grid; gap: 4px;
-  background: var(--white); border: 1px solid var(--blue);
+  background: var(--white); border: 1px solid var(--blue); border-radius: 12px;
+  box-shadow: var(--shadow-card); animation: submenu-arrive .22s var(--ease-premium) both;
 }
 .election-submenu[hidden] { display: none; }
 .election-submenu a {
@@ -107,12 +137,21 @@ body.telugu .hero-place span:last-child { font-family: var(--telugu); letter-spa
   min-width: 104px; min-height: 37px; border: 1px solid var(--blue); border-radius: 30px;
   background: var(--white); color: var(--blue); display: inline-flex; align-items: center;
   justify-content: center; gap: 8px; cursor: pointer; font-size: 11px; font-weight: 700;
+  box-shadow: 0 4px 14px rgba(7, 86, 164, .08);
+  transition: transform .3s var(--ease-premium), box-shadow .3s ease, background-color .3s ease, color .3s ease;
 }
+.language-toggle:hover { transform: translateY(-2px); box-shadow: 0 9px 20px rgba(7, 86, 164, .16); background: var(--blue); color: var(--white); }
 .language-dot { height: 7px; width: 7px; border-radius: 50%; background: var(--green); }
 
 .hero {
   min-height: 585px; padding: 86px 7.2% 44px; position: relative; overflow: hidden;
   color: var(--white); background: var(--blue);
+}
+.hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 78% 24%, rgba(120, 230, 168, .16), transparent 34%),
+    linear-gradient(115deg, transparent 48%, rgba(255, 255, 255, .055) 48.1%, transparent 48.5%);
 }
 .hero-content {
   position: relative; z-index: 2; width: min(540px, 56%);
@@ -149,21 +188,25 @@ body.telugu .hero-intro, body.telugu .campaign-note, body.telugu .gallery-headin
 body.telugu .candidate-info p, body.telugu .about-copy > p, body.telugu .gallery-empty p { font-family: var(--telugu); line-height: 1.9; }
 .button {
   display: inline-flex; align-items: center; gap: 24px; padding: 14px 18px;
-  font-size: 11px; font-weight: 700; transition: transform .25s ease, background-color .25s ease;
+  font-size: 11px; font-weight: 700; border-radius: 7px;
+  transition: transform .35s var(--ease-premium), background-color .3s ease, box-shadow .35s ease;
 }
 .button:hover { transform: translateY(-3px); }
-.button.button-light { background-color: var(--green); color: var(--white); }
+.button.button-light { background-color: var(--green); color: var(--white); box-shadow: 0 10px 23px rgba(7, 86, 164, .28); }
 .button-light:hover { background-color: var(--green); }
+.button.button-light:hover { box-shadow: 0 15px 30px rgba(7, 86, 164, .38); }
 .hero-art {
   position: absolute; z-index: 1; width: 400px; height: 400px; top: 65px; right: 10%;
-  border: 1px solid var(--white);
+  border: 1px solid var(--white); border-radius: 22px; box-shadow: 0 24px 55px rgba(7, 86, 164, .24);
   background:
     linear-gradient(var(--green-on-blue), var(--green-on-blue)) right 24px top 24px / 54px 5px no-repeat,
     linear-gradient(var(--green), var(--green)) right 24px top 36px / 36px 5px no-repeat;
-  animation: art-arrive .9s cubic-bezier(.2,.75,.25,1) both;
+  animation: art-arrive 1s var(--ease-premium) both;
+  transition: transform .6s var(--ease-premium), box-shadow .6s var(--ease-premium);
 }
+.hero-art:hover { transform: translateY(-5px) rotate(.5deg); box-shadow: 0 32px 70px rgba(7, 86, 164, .32); }
 .hero-art::before {
-  content: ""; position: absolute; inset: 17px; border: 1px solid var(--white);
+  content: ""; position: absolute; inset: 17px; border: 1px solid var(--white); border-radius: 14px;
   pointer-events: none;
 }
 .hero-art-index, .hero-art-caption {
@@ -188,7 +231,7 @@ body.telugu .hero-art-caption { font-family: var(--telugu); letter-spacing: 0; }
 .hero-stamp {
   position: absolute; top: 69px; right: 32px; width: 76px; height: 76px;
   background-color: var(--green); color: var(--white); display: grid; place-items: center;
-  text-align: center; padding: 12px; font-size: 8px; font-weight: 800; line-height: 1.4;
+  text-align: center; padding: 12px; font-size: 8px; font-weight: 800; line-height: 1.4; border-radius: 50%;
   animation: badge-arrive .7s .45s cubic-bezier(.2,.75,.25,1) both;
 }
 body.telugu .hero-stamp { font-family: var(--telugu); }
@@ -232,8 +275,8 @@ body.telugu .elections-heading p { font-family: var(--telugu); line-height: 1.9;
 .election-card {
   position: relative; min-height: 158px; padding: 22px;
   display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
-  gap: 9px; overflow: hidden; border: 1px solid var(--blue); background: var(--white);
-  box-shadow: 0 6px 18px rgba(7, 86, 164, .12);
+  gap: 9px; overflow: hidden; border: 1px solid var(--blue); border-radius: var(--radius-card); background: var(--white);
+  box-shadow: var(--shadow-card);
   transition: background-color .32s ease, border-color .32s ease, color .32s ease,
     box-shadow .32s ease, transform .32s cubic-bezier(.2,.75,.25,1);
 }
@@ -244,7 +287,7 @@ body.telugu .elections-heading p { font-family: var(--telugu); line-height: 1.9;
 }
 .election-card:hover, .election-card:focus-visible {
   background: var(--blue); border-color: var(--green);
-  box-shadow: 0 14px 28px rgba(7, 86, 164, .22); color: var(--white); transform: translateY(-6px);
+  box-shadow: var(--shadow-card-hover); color: var(--white); transform: translateY(-7px);
 }
 .election-card:hover::before, .election-card:focus-visible::before { transform: scaleY(1); }
 .election-number { color: var(--blue); font-size: 10px; font-weight: 700; letter-spacing: .12em; }
@@ -298,17 +341,17 @@ body.telugu[data-election="mptc"] .campaign-grid h2 {
 .gallery-heading h2 em { color: var(--green); }
 .about-copy h2 em { color: var(--green-on-blue); }
 .candidate-card {
-  min-height: 155px; background: var(--white); border: 1px solid var(--white);
+  min-height: 155px; background: var(--white); border: 1px solid var(--white); border-radius: var(--radius-card);
   display: flex; align-items: center; gap: 20px; padding: 23px 25px;
-  transition: transform .3s ease;
+  box-shadow: var(--shadow-card); transition: transform .45s var(--ease-premium), box-shadow .45s ease;
 }
-.candidate-card:hover { transform: translateY(-5px); }
+.candidate-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-card-hover); }
 .candidate-initial {
   width: 78px; height: 91px; display: grid; place-items: center; flex: 0 0 auto;
   background: var(--green); color: var(--white);
   font-weight: 700; font-size: 38px;
 }
-.candidate-photo { display: block; object-fit: cover; }
+.candidate-photo { display: block; object-fit: cover; border-radius: 10px; box-shadow: 0 8px 20px rgba(7, 86, 164, .18); }
 .candidate-initial .fan-symbol { width: 48px; height: 48px; color: var(--white); }
 .candidate-label { color: var(--green); font-size: 9px; letter-spacing: .12em; font-weight: 700; }
 .candidate-info h3 { margin: 9px 0 2px; font-size: 23px; letter-spacing: .08em; }
@@ -322,22 +365,23 @@ body.telugu[data-election="mptc"] .campaign-grid h2 {
 .gallery-heading > p { max-width: 260px; color: var(--blue); font-size: 12px; line-height: 1.8; margin: 0 0 6px; }
 .gallery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
 .media-group-heading {
-  grid-column: 1 / -1; margin: 15px 0 0; padding-bottom: 10px;
-  border-bottom: 1px solid var(--blue); color: var(--blue); font-size: 18px;
+  grid-column: 1 / -1; margin: 20px 0 2px; padding: 0 0 12px 14px;
+  border-bottom: 1px solid var(--blue); border-left: 3px solid var(--green);
+  color: var(--blue); font-size: 18px;
 }
-.media-card { background: var(--white); min-width: 0; overflow: hidden; border: 1px solid var(--blue); transition: transform .3s ease, box-shadow .3s ease; }
-.media-card:hover { transform: translateY(-5px); box-shadow: 0 12px 26px rgba(7, 86, 164, .14); }
+.media-card { background: var(--white); min-width: 0; overflow: hidden; border: 1px solid var(--blue); border-radius: 13px; box-shadow: 0 7px 20px rgba(7, 86, 164, .08); transition: transform .45s var(--ease-premium), box-shadow .45s ease, border-color .3s ease; }
+.media-card:hover, .media-card:focus-within { transform: translateY(-6px); border-color: var(--green); box-shadow: var(--shadow-card-hover); }
 .media-frame { width: 100%; height: 230px; display: block; object-fit: cover; background: var(--blue); }
-img.media-frame { transition: transform .55s cubic-bezier(.2,.75,.25,1); }
+img.media-frame { transition: transform .8s var(--ease-premium); }
 .media-card:hover img.media-frame { transform: scale(1.035); }
 video.media-frame { object-fit: contain; background: var(--blue); }
-.media-caption { padding: 15px 16px 17px; }
+.media-caption { padding: 17px 18px 19px; }
 .media-caption h3 { margin: 0 0 5px; font-size: 13px; }
 .media-caption p { margin: 0; color: var(--blue); font-size: 10px; line-height: 1.6; }
 .media-caption .media-hint { margin-top: 7px; color: var(--green); font-size: 10px; }
 .media-caption .media-date { color: var(--green); text-transform: uppercase; letter-spacing: .1em; font-weight: 700; margin-bottom: 8px; }
 .gallery-empty {
-  min-height: 250px; background: var(--white); border: 1px dashed var(--blue);
+  min-height: 250px; background: var(--white); border: 1px dashed var(--blue); border-radius: var(--radius-card);
   display: flex; flex-direction: column; justify-content: center; align-items: center;
   text-align: center; padding: 28px;
 }
@@ -348,10 +392,13 @@ video.media-frame { object-fit: contain; background: var(--blue); }
 
 .about-section { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: 8%; padding-top: 98px; padding-bottom: 102px; background: var(--blue); }
 .about-mark {
-  aspect-ratio: 1; max-width: 300px; background: var(--white); color: var(--blue);
+  aspect-ratio: 1; max-width: 300px; background: var(--white); color: var(--blue); border-radius: 18px;
   display: grid; place-items: center; position: relative; overflow: hidden;
   font-size: clamp(42px, 5.5vw, 69px); letter-spacing: -.07em; font-weight: 800;
+  box-shadow: 0 24px 55px rgba(7, 86, 164, .24);
+  transition: transform .6s var(--ease-premium), box-shadow .6s ease;
 }
+.about-mark:hover { transform: translateY(-5px) rotate(-1deg); box-shadow: 0 30px 65px rgba(7, 86, 164, .32); }
 .about-mark::before {
   content: ""; position: absolute; inset: 8%; border: 1px solid var(--blue);
 }
@@ -367,11 +414,31 @@ video.media-frame { object-fit: contain; background: var(--blue); }
 .about-copy > p { max-width: 460px; margin: 20px 0 0; color: var(--white); font-size: 13px; line-height: 1.9; }
 
 .site-footer {
-  min-height: 86px; border-top: 1px solid var(--white); padding: 20px 7.2%;
+  min-height: 100px; border-top: 1px solid var(--white); padding: 20px 7.2%;
   display: flex; align-items: center; justify-content: space-between; gap: 20px;
   background: var(--blue); color: var(--white);
 }
 .site-footer p { color: var(--white); font-size: 10px; }
+.footer-credit { display: grid; justify-items: center; gap: 2px; text-align: center; }
+.footer-credit span:first-child { color: var(--green-on-blue); font-size: 8px; font-weight: 700; letter-spacing: .14em; }
+.footer-credit strong { color: var(--white); font-size: 13px; }
+.footer-credit span:last-child { color: var(--white); font-size: 10px; }
+.presenter-intro {
+  position: fixed; inset: 0; z-index: 20; display: grid; place-items: center;
+  padding: 24px; background: var(--blue); color: var(--white);
+  animation: presenter-intro-exit 2.6s ease-in-out forwards;
+}
+.presenter-intro-card {
+  width: min(520px, 100%); min-height: 210px; padding: 38px 28px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+  border: 1px solid var(--green-on-blue); border-radius: 18px;
+  box-shadow: 0 25px 70px rgba(7, 86, 164, .35);
+  animation: presenter-credit-arrive .85s var(--ease-premium) both;
+}
+.presenter-intro-label { color: var(--green-on-blue); font-size: 11px; font-weight: 700; letter-spacing: .2em; }
+.presenter-intro-card strong { color: var(--white); text-align: center; font-size: clamp(23px, 5vw, 36px); line-height: 1.25; }
+body.telugu .presenter-intro-label, body.telugu .presenter-intro-card strong { font-family: var(--telugu); letter-spacing: 0; }
+.presenter-intro-rule { width: 44px; height: 2px; background: var(--green); }
 .footer-brand, .footer-brand span { color: var(--white); }
 .footer-brand { display: inline-flex; align-items: center; gap: 9px; }
 .fan-footer { width: 26px; height: 26px; color: var(--white); }
@@ -381,13 +448,13 @@ video.media-frame { object-fit: contain; background: var(--blue); }
 .reveal-item { opacity: 1; transform: none; }
 .reveal-enabled .reveal-item {
   opacity: 0; transform: translateY(22px);
-  transition: opacity .65s ease, transform .65s cubic-bezier(.2,.75,.25,1);
+  transition: opacity .75s ease, transform .75s var(--ease-premium);
 }
 .reveal-enabled .reveal-item.is-visible { opacity: 1; transform: translateY(0); }
 .reveal-enabled .media-card:nth-of-type(2) { transition-delay: .1s; }
 .reveal-enabled .media-card:nth-of-type(3) { transition-delay: .2s; }
 .reveal-enabled .election-card {
-  transition: opacity .65s ease, transform .65s cubic-bezier(.2,.75,.25,1),
+  transition: opacity .75s ease, transform .75s var(--ease-premium),
     background-color .32s ease, border-color .32s ease, color .32s ease, box-shadow .32s ease;
 }
 .reveal-enabled .election-card:nth-child(2) { transition-delay: .08s; }
@@ -417,6 +484,7 @@ video.media-frame { object-fit: contain; background: var(--blue); }
   .main-nav { gap: 12px; }
   .hero { padding-left: 6%; padding-right: 6%; }
   .hero-art { right: -4%; transform: scale(.82); transform-origin: center right; }
+  .hero-art:hover { transform: translateY(-5px) rotate(.5deg) scale(.82); }
   .hero-content { width: 60%; }
   .hero-footer { left: 6%; right: 6%; }
   .section-wrap { padding-left: 7%; padding-right: 7%; }
@@ -476,6 +544,7 @@ video.media-frame { object-fit: contain; background: var(--blue); }
     height: min(295px, 82vw); margin: 24px auto 0;
     transform: none;
   }
+  .hero-art:hover { transform: none; }
   .hero-monogram { top: 66%; font-size: 36px; }
   .fan-hero { width: 96px; height: 96px; top: 61px; }
   .hero-stamp { width: 62px; height: 62px; top: 57px; right: 25px; font-size: 7px; }
@@ -524,8 +593,9 @@ video.media-frame { object-fit: contain; background: var(--blue); }
   .gallery-empty { min-height: 220px; padding: 22px 16px; }
   .gallery-empty h3 { font-size: 17px; }
   .gallery-empty p { font-size: 14px; }
-  .site-footer { padding: 18px 20px; flex-wrap: wrap; gap: 10px 16px; }
-  .site-footer p { order: 3; width: 100%; margin: 0; font-size: 12px; }
+  .site-footer { padding: 20px; flex-wrap: wrap; gap: 16px; }
+  .footer-credit { order: 3; width: 100%; padding-top: 14px; border-top: 1px solid var(--green-on-blue); }
+  .site-footer p { order: 2; width: auto; flex: 1; margin: 0; font-size: 12px; }
   .back-top { min-height: 44px; }
 }
 @media (max-width: 360px) {

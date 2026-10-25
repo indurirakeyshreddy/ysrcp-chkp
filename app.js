@@ -153,6 +153,34 @@ function setupElectionMenuHover() {
   });
 }
 
+function setupPresenterIntro() {
+  if (!document.querySelector(".footer-credit")) {
+    return;
+  }
+
+  const intro = document.createElement("div");
+  intro.className = "presenter-intro";
+  intro.setAttribute("role", "status");
+  intro.setAttribute("aria-live", "polite");
+  intro.innerHTML = `
+    <div class="presenter-intro-card">
+      <span class="presenter-intro-rule" aria-hidden="true"></span>
+      <span class="presenter-intro-label" data-en="PRESENTED BY" data-te="సమర్పణ">సమర్పణ</span>
+      <strong data-en="Merugu Venkata Reddy" data-te="మెరుగు వెంకట రెడ్డి">మెరుగు వెంకట రెడ్డి</strong>
+      <span class="presenter-intro-rule" aria-hidden="true"></span>
+    </div>
+  `;
+  document.body.append(intro);
+
+  const removeIntro = (event) => {
+    if (event.target === intro) {
+      intro.remove();
+    }
+  };
+  intro.addEventListener("animationend", removeIntro, { once: true });
+  window.setTimeout(removeIntro, 2800);
+}
+
 function setupScrollReveals() {
   if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     return;
@@ -324,5 +352,6 @@ function renderGallery() {
 
 setupScrollReveals();
 setupElectionMenuHover();
+setupPresenterIntro();
 renderGallery();
 loadElectionMenu();
