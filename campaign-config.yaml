@@ -21,10 +21,10 @@ elections:
     enabled: 1
     label:
       en: "MPTC"
-      te: "మండల పరిషత్ ప్రాదేశిక నియోజకవర్గం"
+      te: "ఎం.పి.టి.సి"
     description:
       en: "Village & mandal campaign"
-      te: "మండల పరిషత్ ప్రాదేశిక నియోజకవర్గం ప్రచారం"
+      te: "ఎం.పి.టి.సి ప్రచారం"
   zptc:
     enabled: 0
     label:
