@@ -276,6 +276,13 @@ function renderGallery() {
       media.setAttribute("aria-label", "Campaign video");
       let lastVideoTap = 0;
       const toggleVideoSound = () => {
+        if (media.muted) {
+          document.querySelectorAll("video.media-frame").forEach((video) => {
+            if (video !== media) {
+              video.muted = true;
+            }
+          });
+        }
         media.muted = !media.muted;
         updateSoundButton();
       };
@@ -358,22 +365,33 @@ function renderGallery() {
           media.pause();
         }
       });
-      soundButton.addEventListener("click", () => {
-        media.muted = !media.muted;
-        updateSoundButton();
-      });
+      soundButton.addEventListener("click", toggleVideoSound);
       fullscreenButton.addEventListener("click", toggleFullscreen);
       videoShell.addEventListener("fullscreenchange", updateFullscreenButton);
       media.addEventListener("webkitbeginfullscreen", updateFullscreenButton);
       media.addEventListener("webkitendfullscreen", updateFullscreenButton);
+      media.addEventListener("play", () => {
+        document.querySelectorAll("video.media-frame").forEach((video) => {
+          if (video !== media) {
+            video.pause();
+            video.muted = true;
+          }
+        });
+      });
       media.addEventListener("play", updatePlayButton);
       media.addEventListener("pause", updatePlayButton);
       media.addEventListener("volumechange", updateSoundButton);
-      media.addEventListener("mouseenter", playVideo);
+      media.addEventListener("pointerenter", (event) => {
+        if (event.pointerType === "mouse") {
+          playVideo();
+        }
+      });
       media.addEventListener("touchstart", () => videoShell.classList.add("is-active"), { passive: true });
       videoShell.addEventListener("pointerleave", (event) => {
         if (event.pointerType !== "touch") {
           videoShell.classList.remove("is-active");
+          media.pause();
+          media.muted = true;
         }
       });
       videoShell.addEventListener("focusout", (event) => {
@@ -395,6 +413,12 @@ function renderGallery() {
           return;
         }
         lastVideoTap = now;
+        playVideo();
+      });
+      media.addEventListener("click", () => {
+        if (window.matchMedia("(hover: none)").matches) {
+          playVideo();
+        }
       });
       updatePlayButton();
       updateSoundButton();
@@ -429,14 +453,6 @@ function renderGallery() {
       ? item.titleTe || item.title || ""
       : item.title || "";
     caption.append(title);
-    if (item.type === "video") {
-      const hint = document.createElement("p");
-      hint.className = "media-hint";
-      hint.dataset.en = "Double-click the video to toggle sound.";
-      hint.dataset.te = "శబ్దాన్ని మార్చడానికి వీడియోపై రెండుసార్లు క్లిక్ చేయండి.";
-      hint.textContent = document.documentElement.lang === "te" ? hint.dataset.te : hint.dataset.en;
-      caption.append(hint);
-    }
     if (item.description) {
       const description = document.createElement("p");
       description.textContent = document.documentElement.lang === "te"
@@ -449,36 +465,13 @@ function renderGallery() {
   });
 
   if ("IntersectionObserver" in window) {
-    const visibleRatios = new Map();
     videoObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => visibleRatios.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0));
-      const visibleVideos = [...visibleRatios.entries()]
-        .filter(([, ratio]) => ratio > 0)
-        .sort((a, b) => b[1] - a[1]);
-      const activeVideo = visibleVideos[0]?.[0];
-      gallery.querySelectorAll("video.media-frame").forEach((video) => {
-        if (video !== activeVideo) {
-          video.pause();
-        }
+      entries.filter((entry) => !entry.isIntersecting).forEach(({ target }) => {
+        target.pause();
+        target.muted = true;
       });
-      if (activeVideo && activeVideo.paused) {
-        activeVideo.play().catch((error) => {
-          if (error.name !== "AbortError") {
-            console.warn(`Unable to autoplay campaign video: ${activeVideo.currentSrc}`, error);
-          }
-        });
-      }
     }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
     gallery.querySelectorAll("video.media-frame").forEach((video) => videoObserver.observe(video));
-  } else {
-    gallery.querySelectorAll("video.media-frame").forEach((video) => {
-      video.autoplay = true;
-      video.play().catch((error) => {
-        if (error.name !== "AbortError") {
-          console.warn(`Unable to autoplay campaign video: ${video.currentSrc}`, error);
-        }
-      });
-    });
   }
 }
 
