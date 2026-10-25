@@ -3,31 +3,31 @@ window.campaignMediaByElection = {
     {
       type: "image",
       src: "mptc/mptc-media/fans/fan-1.jpeg",
-      title: "Campaign supporters",
+      title: "YSRCP Fans",
       titleTe: "వైస్సార్సీపీ అభిమానులు",
     },
     {
       type: "image",
       src: "mptc/mptc-media/fans/fan-2.jpeg",
-      title: "Campaign supporters",
+      title: "YSRCP Fans",
       titleTe: "వైస్సార్సీపీ అభిమానులు",
     },
     {
       type: "image",
       src: "mptc/mptc-media/new-joinees/newly-joined-1.jpeg",
-      title: "New members joining YSRCP",
+      title: "Members joining YSRCP",
       titleTe: "వై.ఎస్.ఆర్.సి.పి.లో చేరిన సభ్యులు",
     },
     {
       type: "image",
       src: "mptc/mptc-media/new-joinees/newly-joined-2.jpeg",
-      title: "New members joining YSRCP",
+      title: "Members joining YSRCP",
       titleTe: "వై.ఎస్.ఆర్.సి.పి.లో చేరిన సభ్యులు",
     },
     {
       type: "image",
       src: "mptc/mptc-media/new-joinees/newly-joined-3.jpeg",
-      title: "New members joining YSRCP",
+      title: "Members joining YSRCP",
       titleTe: "వై.ఎస్.ఆర్.సి.పి.లో చేరిన సభ్యులు",
     },
     {

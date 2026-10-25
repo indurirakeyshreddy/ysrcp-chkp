@@ -36,7 +36,7 @@ Campaign pages remain available by their folder URLs even when hidden from the E
 
    ```js
    mptc: [
-     { type: "image", src: "mptc/mptc-media/fans/fan-1.jpeg", title: "Campaign supporters", titleTe: "ప్రచార మద్దతుదారులు" },
+     { type: "image", src: "mptc/mptc-media/fans/fan-1.jpeg", title: "YSRCP Fans", titleTe: "వైస్సార్సీపీ అభిమానులు" },
      { type: "video", src: "mptc/mptc-media/procession-rally/procession-rally.mp4", title: "Campaign procession", titleTe: "ప్రచార ఊరేగింపు" },
    ],
    ```

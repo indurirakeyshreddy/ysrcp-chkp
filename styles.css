@@ -1,21 +1,24 @@
 :root {
-  font-family: "DM Sans", "Anek Telugu", sans-serif;
+  font-family: "Manrope", "Anek Telugu", sans-serif;
   color: #0756a4;
-  background: #0756a4;
+  background: #064783;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   --blue: #0756a4;
+  --blue-deep: #064783;
+  --blue-dark: #043866;
+  --blue-soft: #edf5fb;
   --white: #ffffff;
   --green: #138443;
+  --green-deep: #0d6f37;
   --green-on-blue: #78e6a8;
-  --blue-deep: var(--blue);
   --ink: var(--blue);
   --paper: var(--white);
-  --muted: var(--blue);
+  --muted: #315f88;
   --telugu: "Anek Telugu", sans-serif;
   --ease-premium: cubic-bezier(.2,.75,.25,1);
-  --shadow-card: 0 12px 32px rgba(7, 86, 164, .12);
-  --shadow-card-hover: 0 22px 48px rgba(7, 86, 164, .2);
+  --shadow-card: 0 12px 32px rgba(4, 56, 102, .12);
+  --shadow-card-hover: 0 22px 48px rgba(4, 56, 102, .2);
   --radius-card: 16px;
 }
 @keyframes fan-spin {
@@ -63,7 +66,7 @@ button:focus-visible, a:focus-visible { outline: 3px solid var(--green); outline
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: var(--white);
+  background: linear-gradient(105deg, var(--white), var(--blue-soft));
   position: relative;
   z-index: 5;
   box-shadow: 0 5px 22px rgba(7, 86, 164, .08);
@@ -145,13 +148,15 @@ body.telugu .hero-place span:last-child { font-family: var(--telugu); letter-spa
 
 .hero {
   min-height: 585px; padding: 86px 7.2% 44px; position: relative; overflow: hidden;
-  color: var(--white); background: var(--blue);
+  color: var(--white);
+  background: linear-gradient(118deg, var(--blue-dark) 0%, var(--blue-deep) 42%, var(--blue) 100%);
 }
 .hero::before {
   content: ""; position: absolute; inset: 0; pointer-events: none;
   background:
-    radial-gradient(ellipse at 78% 24%, rgba(120, 230, 168, .16), transparent 34%),
-    linear-gradient(115deg, transparent 48%, rgba(255, 255, 255, .055) 48.1%, transparent 48.5%);
+    radial-gradient(ellipse at 78% 24%, rgba(120, 230, 168, .2), transparent 34%),
+    radial-gradient(ellipse at 15% 100%, rgba(7, 86, 164, .35), transparent 42%),
+    linear-gradient(115deg, transparent 48%, rgba(255, 255, 255, .07) 48.1%, transparent 48.5%);
 }
 .hero-content {
   position: relative; z-index: 2; width: min(540px, 56%);
@@ -192,12 +197,12 @@ body.telugu .candidate-info p, body.telugu .about-copy > p, body.telugu .gallery
   transition: transform .35s var(--ease-premium), background-color .3s ease, box-shadow .35s ease;
 }
 .button:hover { transform: translateY(-3px); }
-.button.button-light { background-color: var(--green); color: var(--white); box-shadow: 0 10px 23px rgba(7, 86, 164, .28); }
+.button.button-light { background: linear-gradient(135deg, var(--green), var(--green-deep)); color: var(--white); box-shadow: 0 10px 23px rgba(7, 86, 164, .28); }
 .button-light:hover { background-color: var(--green); }
 .button.button-light:hover { box-shadow: 0 15px 30px rgba(7, 86, 164, .38); }
 .hero-art {
   position: absolute; z-index: 1; width: 400px; height: 400px; top: 65px; right: 10%;
-  border: 1px solid var(--white); border-radius: 22px; box-shadow: 0 24px 55px rgba(7, 86, 164, .24);
+  border: 1px solid rgba(255, 255, 255, .8); border-radius: 22px; box-shadow: 0 24px 55px rgba(4, 56, 102, .28);
   background:
     linear-gradient(var(--green-on-blue), var(--green-on-blue)) right 24px top 24px / 54px 5px no-repeat,
     linear-gradient(var(--green), var(--green)) right 24px top 36px / 36px 5px no-repeat;
@@ -218,7 +223,7 @@ body.telugu .candidate-info p, body.telugu .about-copy > p, body.telugu .gallery
   bottom: 30px; left: 34px; width: calc(100% - 68px);
   text-align: center;
 }
-.hero-art-caption, .hero-art-index { font-family: "DM Sans", sans-serif; }
+.hero-art-caption, .hero-art-index { font-family: "Manrope", sans-serif; }
 .hero-art-caption { letter-spacing: .08em; }
 body.telugu .hero-art-caption { font-family: var(--telugu); letter-spacing: 0; }
 .hero-art-index::before { content: ""; display: inline-block; width: 15px; height: 2px; margin: 0 8px 2px 0; background: var(--green-on-blue); }
@@ -256,7 +261,7 @@ body.telugu .hero-stamp { font-family: var(--telugu); }
 .scroll-cue span:last-child { animation: arrow-nudge 1.8s ease-in-out infinite; }
 
 .section-wrap { padding-left: 10%; padding-right: 10%; }
-.elections-section { padding-top: 84px; padding-bottom: 92px; background: var(--white); }
+.elections-section { padding-top: 84px; padding-bottom: 92px; background: linear-gradient(180deg, var(--white), var(--blue-soft)); }
 .elections-heading {
   display: flex; justify-content: space-between; align-items: end; gap: 32px;
   margin-bottom: 32px;
@@ -279,7 +284,7 @@ body.telugu .elections-heading p { font-family: var(--telugu); line-height: 1.9;
 .election-card {
   position: relative; min-height: 158px; padding: 22px;
   display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
-  gap: 9px; overflow: hidden; border: 1px solid var(--blue); border-radius: var(--radius-card); background: var(--white);
+  gap: 9px; overflow: hidden; border: 1px solid #d7e7f4; border-radius: var(--radius-card); background: var(--white);
   box-shadow: var(--shadow-card);
   transition: background-color .32s ease, border-color .32s ease, color .32s ease,
     box-shadow .32s ease, transform .32s cubic-bezier(.2,.75,.25,1);
@@ -325,7 +330,7 @@ body.telugu .election-title { font-family: var(--telugu); font-size: 13px; }
 .hub-hero-art .hero-monogram { top: 63%; }
 .hub-hero-art .hero-place { bottom: 45px; }
 .hub-hero-art .hero-stamp { top: 69px; right: 32px; }
-.campaign-section { padding-top: 92px; padding-bottom: 86px; background: var(--blue); }
+.campaign-section { padding-top: 92px; padding-bottom: 86px; background: linear-gradient(118deg, var(--blue-dark), var(--blue) 72%, var(--blue-deep)); }
 .campaign-section .section-kicker { color: var(--white); margin-bottom: 25px; }
 .campaign-section .section-kicker span:first-of-type { color: var(--green-on-blue); }
 .campaign-section .fan-section, .about-copy .fan-section { color: var(--green-on-blue); }
@@ -363,7 +368,7 @@ body.telugu[data-election="mptc"] .campaign-grid h2 {
 .candidate-arrow { align-self: flex-start; margin-left: auto; color: var(--blue); font-size: 18px; }
 .campaign-note { color: var(--white); max-width: 440px; margin: 27px 0 0; font-size: 12px; line-height: 1.8; }
 
-.gallery-section { background: var(--white); padding: 86px 0 94px; }
+.gallery-section { background: linear-gradient(180deg, var(--blue-soft), var(--white) 220px); padding: 86px 0 94px; }
 .gallery-heading { display: flex; justify-content: space-between; align-items: end; gap: 35px; margin-bottom: 35px; }
 .gallery-heading .section-kicker { margin-bottom: 22px; }
 .gallery-heading > p { max-width: 260px; color: var(--blue); font-size: 12px; line-height: 1.8; margin: 0 0 6px; }
@@ -373,7 +378,7 @@ body.telugu[data-election="mptc"] .campaign-grid h2 {
   border-bottom: 1px solid var(--blue); border-left: 3px solid var(--green);
   color: var(--blue); font-size: 18px;
 }
-.media-card { background: var(--white); min-width: 0; overflow: hidden; border: 1px solid var(--blue); border-radius: 13px; box-shadow: 0 7px 20px rgba(7, 86, 164, .08); transition: transform .45s var(--ease-premium), box-shadow .45s ease, border-color .3s ease; }
+.media-card { background: var(--white); min-width: 0; overflow: hidden; border: 1px solid #d7e7f4; border-radius: 13px; box-shadow: 0 7px 20px rgba(4, 56, 102, .1); transition: transform .45s var(--ease-premium), box-shadow .45s ease, border-color .3s ease; }
 .media-card:hover, .media-card:focus-within { transform: translateY(-6px); border-color: var(--green); box-shadow: var(--shadow-card-hover); }
 .media-frame { width: 100%; height: 230px; display: block; object-fit: cover; background: var(--blue); }
 img.media-frame { transition: transform .8s var(--ease-premium); }
@@ -426,7 +431,7 @@ video.media-frame { object-fit: contain; background: var(--blue); }
 .gallery-empty h3 { margin: 12px 0 7px; font-size: 16px; }
 .gallery-empty p { max-width: 360px; margin: 0; font-size: 12px; color: var(--blue); line-height: 1.7; }
 
-.about-section { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: 8%; padding-top: 98px; padding-bottom: 102px; background: var(--blue); }
+.about-section { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: 8%; padding-top: 98px; padding-bottom: 102px; background: linear-gradient(118deg, var(--blue), var(--blue-deep) 78%, var(--blue-dark)); }
 .about-mark {
   aspect-ratio: 1; max-width: 300px; background: var(--white); color: var(--blue); border-radius: 18px;
   display: grid; place-items: center; position: relative; overflow: hidden;
@@ -461,7 +466,7 @@ video.media-frame { object-fit: contain; background: var(--blue); }
 .footer-credit span:last-child { color: var(--white); font-size: 10px; }
 .presenter-intro {
   position: fixed; inset: 0; z-index: 20; display: grid; place-items: center;
-  padding: 24px; background: var(--blue); color: var(--white);
+  padding: 24px; background: linear-gradient(135deg, var(--blue-dark), var(--blue) 55%, var(--blue-deep)); color: var(--white);
   animation: presenter-intro-exit 2.6s ease-in-out forwards;
 }
 .presenter-intro-card {
