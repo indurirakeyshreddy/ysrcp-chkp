@@ -1,6 +1,7 @@
 const languageButton = document.querySelector(".language-toggle");
 const languageLabel = document.querySelector(".language-label");
 let revealObserver;
+let videoObserver;
 const electionOptions = {
   mptc: { href: "mptc/index.html" },
   zptc: { href: "zptc/index.html" },
@@ -199,13 +200,33 @@ function renderGallery() {
     return;
   }
   const items = Array.isArray(window.campaignMedia) ? window.campaignMedia : [];
+  const supportedItems = items.filter((item) => {
+    if (["image", "video"].includes(item.type) && item.src) {
+      return true;
+    }
+    console.error("Skipping a gallery item with a missing or unsupported type/source.", item);
+    return false;
+  });
+  const orderedItems = [
+    ...supportedItems.filter((item) => item.type === "image"),
+    ...supportedItems.filter((item) => item.type === "video"),
+  ];
+  videoObserver?.disconnect();
+  videoObserver = null;
+  gallery.querySelectorAll("video.media-frame").forEach((video) => video.pause());
   gallery.replaceChildren();
-  emptyState.hidden = items.length > 0;
+  emptyState.hidden = orderedItems.length > 0;
 
-  items.forEach((item) => {
-    if (!["image", "video"].includes(item.type) || !item.src) {
-      console.error("Skipping a gallery item with a missing or unsupported type/source.", item);
-      return;
+  let currentGroup = "";
+  orderedItems.forEach((item) => {
+    if (item.type !== currentGroup) {
+      currentGroup = item.type;
+      const heading = document.createElement("h3");
+      heading.className = "media-group-heading";
+      heading.dataset.en = currentGroup === "image" ? "Photos" : "Videos";
+      heading.dataset.te = currentGroup === "image" ? "ఫోటోలు" : "వీడియోలు";
+      heading.textContent = document.documentElement.lang === "te" ? heading.dataset.te : heading.dataset.en;
+      gallery.append(heading);
     }
 
     const card = document.createElement("article");
@@ -219,7 +240,13 @@ function renderGallery() {
     media.src = document.body.dataset.election ? `../${item.src}` : item.src;
     if (item.type === "video") {
       media.controls = true;
+      media.muted = true;
+      media.playsInline = true;
       media.preload = "metadata";
+      media.setAttribute("aria-label", "Campaign video. Double-click to toggle sound.");
+      media.addEventListener("dblclick", () => {
+        media.muted = !media.muted;
+      });
     } else {
       media.alt = item.title || "YSRCP CHKP campaign";
       media.loading = "lazy";
@@ -242,6 +269,14 @@ function renderGallery() {
       ? item.titleTe || item.title || ""
       : item.title || "";
     caption.append(title);
+    if (item.type === "video") {
+      const hint = document.createElement("p");
+      hint.className = "media-hint";
+      hint.dataset.en = "Double-click the video to toggle sound.";
+      hint.dataset.te = "శబ్దాన్ని మార్చడానికి వీడియోపై రెండుసార్లు క్లిక్ చేయండి.";
+      hint.textContent = document.documentElement.lang === "te" ? hint.dataset.te : hint.dataset.en;
+      caption.append(hint);
+    }
     if (item.description) {
       const description = document.createElement("p");
       description.textContent = document.documentElement.lang === "te"
@@ -252,6 +287,39 @@ function renderGallery() {
     card.append(media, caption);
     gallery.append(card);
   });
+
+  if ("IntersectionObserver" in window) {
+    const visibleRatios = new Map();
+    videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => visibleRatios.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0));
+      const visibleVideos = [...visibleRatios.entries()]
+        .filter(([, ratio]) => ratio > 0)
+        .sort((a, b) => b[1] - a[1]);
+      const activeVideo = visibleVideos[0]?.[0];
+      gallery.querySelectorAll("video.media-frame").forEach((video) => {
+        if (video !== activeVideo) {
+          video.pause();
+        }
+      });
+      if (activeVideo && activeVideo.paused) {
+        activeVideo.play().catch((error) => {
+          if (error.name !== "AbortError") {
+            console.warn(`Unable to autoplay campaign video: ${activeVideo.currentSrc}`, error);
+          }
+        });
+      }
+    }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
+    gallery.querySelectorAll("video.media-frame").forEach((video) => videoObserver.observe(video));
+  } else {
+    gallery.querySelectorAll("video.media-frame").forEach((video) => {
+      video.autoplay = true;
+      video.play().catch((error) => {
+        if (error.name !== "AbortError") {
+          console.warn(`Unable to autoplay campaign video: ${video.currentSrc}`, error);
+        }
+      });
+    });
+  }
 }
 
 setupScrollReveals();

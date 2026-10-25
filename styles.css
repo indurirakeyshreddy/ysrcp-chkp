@@ -290,6 +290,9 @@ body.telugu .election-title { font-family: var(--telugu); font-size: 13px; }
 body.telugu .campaign-grid h2, body.telugu .gallery-heading h2, body.telugu .about-copy h2 {
   font-family: var(--telugu); font-size: clamp(33px, 4vw, 47px); line-height: 1.55; letter-spacing: -.04em;
 }
+body.telugu[data-election="mptc"] .campaign-grid h2 {
+  font-size: clamp(28px, 3.2vw, 38px); line-height: 1.5; letter-spacing: -.035em;
+}
 .campaign-grid h2 em, .gallery-heading h2 em, .about-copy h2 em { color: var(--blue); font-style: normal; }
 .campaign-grid h2, .campaign-grid h2 em { color: var(--white); }
 .gallery-heading h2 em { color: var(--green); }
@@ -317,19 +320,27 @@ body.telugu .campaign-grid h2, body.telugu .gallery-heading h2, body.telugu .abo
 .gallery-heading .section-kicker { margin-bottom: 22px; }
 .gallery-heading > p { max-width: 260px; color: var(--blue); font-size: 12px; line-height: 1.8; margin: 0 0 6px; }
 .gallery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
-.media-card { background: var(--white); min-width: 0; border: 1px solid var(--blue); transition: transform .3s ease; }
-.media-card:hover { transform: translateY(-5px); }
+.media-group-heading {
+  grid-column: 1 / -1; margin: 15px 0 0; padding-bottom: 10px;
+  border-bottom: 1px solid var(--blue); color: var(--blue); font-size: 18px;
+}
+.media-card { background: var(--white); min-width: 0; overflow: hidden; border: 1px solid var(--blue); transition: transform .3s ease, box-shadow .3s ease; }
+.media-card:hover { transform: translateY(-5px); box-shadow: 0 12px 26px rgba(7, 86, 164, .14); }
 .media-frame { width: 100%; height: 230px; display: block; object-fit: cover; background: var(--blue); }
+img.media-frame { transition: transform .55s cubic-bezier(.2,.75,.25,1); }
+.media-card:hover img.media-frame { transform: scale(1.035); }
 video.media-frame { object-fit: contain; background: var(--blue); }
 .media-caption { padding: 15px 16px 17px; }
 .media-caption h3 { margin: 0 0 5px; font-size: 13px; }
 .media-caption p { margin: 0; color: var(--blue); font-size: 10px; line-height: 1.6; }
+.media-caption .media-hint { margin-top: 7px; color: var(--green); font-size: 10px; }
 .media-caption .media-date { color: var(--green); text-transform: uppercase; letter-spacing: .1em; font-weight: 700; margin-bottom: 8px; }
 .gallery-empty {
   min-height: 250px; background: var(--white); border: 1px dashed var(--blue);
   display: flex; flex-direction: column; justify-content: center; align-items: center;
   text-align: center; padding: 28px;
 }
+.gallery-empty[hidden] { display: none; }
 .empty-icon { color: var(--green); font-size: 22px; }
 .gallery-empty h3 { margin: 12px 0 7px; font-size: 16px; }
 .gallery-empty p { max-width: 360px; margin: 0; font-size: 12px; color: var(--blue); line-height: 1.7; }
@@ -372,8 +383,8 @@ video.media-frame { object-fit: contain; background: var(--blue); }
   transition: opacity .65s ease, transform .65s cubic-bezier(.2,.75,.25,1);
 }
 .reveal-enabled .reveal-item.is-visible { opacity: 1; transform: translateY(0); }
-.reveal-enabled .media-card:nth-child(2) { transition-delay: .1s; }
-.reveal-enabled .media-card:nth-child(3) { transition-delay: .2s; }
+.reveal-enabled .media-card:nth-of-type(2) { transition-delay: .1s; }
+.reveal-enabled .media-card:nth-of-type(3) { transition-delay: .2s; }
 .reveal-enabled .election-card {
   transition: opacity .65s ease, transform .65s cubic-bezier(.2,.75,.25,1),
     background-color .32s ease, border-color .32s ease, color .32s ease, box-shadow .32s ease;
@@ -494,6 +505,7 @@ video.media-frame { object-fit: contain; background: var(--blue); }
   .campaign-grid { grid-template-columns: 1fr; gap: 25px; }
   .campaign-grid h2, .gallery-heading h2, .about-copy h2 { font-size: clamp(36px, 10vw, 43px); }
   body.telugu .campaign-grid h2, body.telugu .gallery-heading h2, body.telugu .about-copy h2 { font-size: clamp(31px, 8.6vw, 36px); }
+  body.telugu[data-election="mptc"] .campaign-grid h2 { font-size: clamp(26px, 7vw, 31px); line-height: 1.5; }
   .candidate-card { min-height: 135px; }
   .candidate-info { min-width: 0; }
   .candidate-info p { font-size: 12px; }

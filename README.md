@@ -29,16 +29,17 @@ Campaign pages remain available by their folder URLs even when hidden from the E
 
 ## Add campaign photos and videos
 
-1. Put the files in a root-level `media` folder, using election-specific names such as `media/zptc-meeting.mp4`.
+1. Put MPTC campaign files in `mptc/mptc-media/`, grouped into folders such as `fans`, `new-joinees`, and `procession-rally`.
 2. Open `media.js` and add each item to the matching election's array in `window.campaignMediaByElection`:
 
    ```js
    mptc: [
-     { type: "image", src: "media/mptc-door-to-door.jpg", date: "25 Oct 2026", title: "Campaign visit", titleTe: "ప్రచార పర్యటన" },
+     { type: "image", src: "mptc/mptc-media/fans/fan-1.jpeg", title: "Campaign supporters", titleTe: "ప్రచార మద్దతుదారులు" },
+     { type: "video", src: "mptc/mptc-media/procession-rally/procession-rally.mp4", title: "Campaign procession", titleTe: "ప్రచార ఊరేగింపు" },
    ],
    ```
 
-   Use `type: "video"` for a browser-supported video such as `.mp4`. Add the entry to `zptc`, `panchayat`, `mla`, or `mp` for that campaign's gallery. Telugu titles are optional.
+   Use `type: "video"` for a browser-supported video such as `.mp4`. Gallery photos appear before videos. Videos autoplay muted when visible; double-click a video to toggle sound, or use its player controls. Add entries to `zptc`, `panchayat`, `mla`, or `mp` for those campaign galleries. Telugu titles are optional.
 3. Save the changes and deploy the updated site and media files to your public web host.
 
 This static site does not include an upload dashboard or visitor submissions. Add only media you have permission to publish. Update the candidate details on the relevant page after they are confirmed.
