@@ -2,6 +2,8 @@ const languageButton = document.querySelector(".language-toggle");
 const languageLabel = document.querySelector(".language-label");
 let revealObserver;
 let videoObserver;
+let backgroundMusic;
+let refreshBackgroundMusicButton = () => {};
 const electionOptions = {
   mptc: { href: "mptc/index.html" },
   zptc: { href: "zptc/index.html" },
@@ -216,6 +218,129 @@ function setLanguage(language) {
   renderGallery();
 }
 
+function setupBackgroundMusic() {
+  const preferenceKey = "ysrcp-campaign-song-unmuted";
+  const header = document.querySelector(".site-header");
+  const languageButton = header?.querySelector(".language-toggle");
+  if (!header || !languageButton) {
+    return;
+  }
+
+  const actions = document.createElement("div");
+  actions.className = "header-actions";
+  languageButton.before(actions);
+  actions.append(languageButton);
+
+  const audio = new Audio(new URL("../audio/gira-gira-thirugutundhi-fan-song.mp3", document.baseURI));
+  backgroundMusic = audio;
+  audio.autoplay = true;
+  audio.loop = true;
+  audio.preload = "auto";
+  let savedPreference = null;
+  try {
+    savedPreference = localStorage.getItem(preferenceKey);
+    audio.muted = savedPreference === "false";
+  } catch (error) {
+    console.error("Unable to restore the campaign song sound preference.", error);
+    audio.muted = false;
+  }
+  audio.hidden = true;
+  audio.setAttribute("aria-hidden", "true");
+  document.body.append(audio);
+
+  const button = document.createElement("button");
+  button.className = "background-audio-toggle";
+  button.type = "button";
+  button.setAttribute("aria-label", "Unmute campaign song");
+  button.setAttribute("aria-pressed", "false");
+  button.title = "Unmute campaign song";
+  button.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="speaker-shape" d="M3 9v6h4l5 4V5L7 9H3z"/><path class="speaker-waves" d="M16 9a5 5 0 0 1 0 6m2-9a9 9 0 0 1 0 12"/><path class="speaker-muted" d="m16 9 5 6m0-6-5 6"/></svg>';
+  actions.prepend(button);
+
+  const updateButton = () => {
+    const isPlaying = !audio.paused;
+    button.classList.toggle("is-muted", audio.muted || !isPlaying);
+    button.setAttribute("aria-pressed", String(!audio.muted && isPlaying));
+    button.setAttribute("aria-label", audio.muted || !isPlaying ? "Unmute campaign song" : "Mute campaign song");
+    button.title = audio.muted || !isPlaying ? "Unmute campaign song" : "Mute campaign song";
+  };
+  refreshBackgroundMusicButton = updateButton;
+
+  const playAudio = (retryMuted = true) => {
+    audio.play().catch((error) => {
+      if (error.name === "NotAllowedError" && !audio.muted && retryMuted) {
+        audio.muted = true;
+        updateButton();
+        playAudio(false);
+        return;
+      }
+      if (error.name === "NotAllowedError") {
+        console.warn("The browser blocked campaign song autoplay; playback will retry after user interaction.");
+      } else {
+        console.error("Unable to play the campaign song.", error);
+      }
+    });
+  };
+  button.addEventListener("click", () => {
+    const unmuted = audio.muted;
+    if (unmuted) {
+      document.querySelectorAll("video.media-frame").forEach((video) => {
+        video.muted = true;
+      });
+    }
+    audio.muted = !unmuted;
+    try {
+      localStorage.setItem(preferenceKey, String(unmuted));
+      savedPreference = String(unmuted);
+    } catch (error) {
+      console.error("Unable to save the campaign song sound preference.", error);
+    }
+    updateButton();
+    playAudio();
+  });
+  audio.addEventListener("volumechange", updateButton);
+  audio.addEventListener("volumechange", () => {
+    if (!audio.muted) {
+      document.querySelectorAll("video.media-frame").forEach((video) => {
+        video.muted = true;
+      });
+    }
+  });
+  audio.addEventListener("play", updateButton);
+  audio.addEventListener("pause", updateButton);
+  const startWithSoundAfterInteraction = (event) => {
+    interactionEvents.forEach((type) => document.removeEventListener(type, startWithSoundAfterInteraction));
+    if (button.contains(event.target)) {
+      return;
+    }
+    const videoInteraction = event.target instanceof Element && event.target.closest(".video-shell");
+    const videoIsPlaying = [...document.querySelectorAll("video.media-frame")].some((video) => !video.paused);
+    if (videoInteraction || videoIsPlaying) {
+      audio.muted = true;
+      playAudio();
+      updateButton();
+      return;
+    }
+    if (savedPreference !== "false") {
+      audio.muted = false;
+      try {
+        localStorage.setItem(preferenceKey, "true");
+        savedPreference = "true";
+      } catch (error) {
+        console.error("Unable to save the campaign song sound preference.", error);
+      }
+    }
+    playAudio();
+    updateButton();
+  };
+  const interactionEvents = ["click", "keydown", "wheel", "touchstart", "scroll"];
+  interactionEvents.forEach((type) => {
+    document.addEventListener(type, startWithSoundAfterInteraction, { once: true, passive: true });
+  });
+  updateButton();
+  playAudio();
+}
+
 if (languageButton) {
   languageButton.addEventListener("click", () => {
     setLanguage(document.documentElement.lang === "te" ? "en" : "te");
@@ -277,6 +402,10 @@ function renderGallery() {
       let lastVideoTap = 0;
       const toggleVideoSound = () => {
         if (media.muted) {
+          if (backgroundMusic) {
+            backgroundMusic.muted = true;
+            refreshBackgroundMusicButton();
+          }
           document.querySelectorAll("video.media-frame").forEach((video) => {
             if (video !== media) {
               video.muted = true;
@@ -371,6 +500,10 @@ function renderGallery() {
       media.addEventListener("webkitbeginfullscreen", updateFullscreenButton);
       media.addEventListener("webkitendfullscreen", updateFullscreenButton);
       media.addEventListener("play", () => {
+        if (backgroundMusic) {
+          backgroundMusic.muted = true;
+          refreshBackgroundMusicButton();
+        }
         document.querySelectorAll("video.media-frame").forEach((video) => {
           if (video !== media) {
             video.pause();
@@ -478,5 +611,6 @@ function renderGallery() {
 setupScrollReveals();
 setupElectionMenuHover();
 setupPresenterIntro();
+setupBackgroundMusic();
 renderGallery();
 loadElectionMenu();
