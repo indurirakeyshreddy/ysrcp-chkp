@@ -397,7 +397,7 @@ function renderGallery() {
     if (item.type === "video") {
       media.muted = true;
       media.playsInline = true;
-      media.preload = "none";
+      media.preload = "metadata";
       media.setAttribute("aria-label", "Campaign video");
       let lastVideoTap = 0;
       const toggleVideoSound = () => {
