@@ -308,6 +308,7 @@ body.telugu[data-election="mptc"] .campaign-grid h2 {
   background: var(--green); color: var(--white);
   font-weight: 700; font-size: 38px;
 }
+.candidate-photo { display: block; object-fit: cover; }
 .candidate-initial .fan-symbol { width: 48px; height: 48px; color: var(--white); }
 .candidate-label { color: var(--green); font-size: 9px; letter-spacing: .12em; font-weight: 700; }
 .candidate-info h3 { margin: 9px 0 2px; font-size: 23px; letter-spacing: .08em; }
