@@ -4,13 +4,13 @@ window.campaignMediaByElection = {
       type: "image",
       src: "mptc/mptc-media/fans/fan-1.jpeg",
       title: "Campaign supporters",
-      titleTe: "అభిమానులు",
+      titleTe: "వైస్సార్సీపీ అభిమానులు",
     },
     {
       type: "image",
       src: "mptc/mptc-media/fans/fan-2.jpeg",
       title: "Campaign supporters",
-      titleTe: "అభిమానులు",
+      titleTe: "వైస్సార్సీపీ అభిమానులు",
     },
     {
       type: "image",

@@ -266,15 +266,101 @@ function renderGallery() {
     const media = document.createElement(item.type === "video" ? "video" : "img");
     media.className = "media-frame";
     media.src = document.body.dataset.election ? `../${item.src}` : item.src;
+    let mediaDisplay = media;
     if (item.type === "video") {
-      media.controls = true;
       media.muted = true;
       media.playsInline = true;
       media.preload = "metadata";
-      media.setAttribute("aria-label", "Campaign video. Double-click to toggle sound.");
-      media.addEventListener("dblclick", () => {
+      media.setAttribute("aria-label", "Campaign video");
+      let lastVideoTap = 0;
+      const toggleVideoSound = () => {
         media.muted = !media.muted;
+        updateSoundButton();
+      };
+      const playVideo = () => {
+        if (!media.paused) {
+          return;
+        }
+        media.play().catch((error) => {
+          if (error.name !== "AbortError") {
+            console.warn(`Unable to play campaign video: ${media.currentSrc}`, error);
+          }
+        });
+      };
+      const videoShell = document.createElement("div");
+      videoShell.className = "video-shell";
+      const controls = document.createElement("div");
+      controls.className = "video-controls";
+      const playButton = document.createElement("button");
+      playButton.className = "video-control-button";
+      playButton.type = "button";
+      playButton.setAttribute("aria-label", document.documentElement.lang === "te" ? "వీడియోను ప్లే చేయండి" : "Play video");
+      playButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="play-icon" d="m9 6 10 6-10 6z"/><path class="pause-icon" d="M8 6h3v12H8zm5 0h3v12h-3z"/></svg>';
+      const soundButton = document.createElement("button");
+      soundButton.className = "video-control-button";
+      soundButton.type = "button";
+      soundButton.setAttribute("aria-label", document.documentElement.lang === "te" ? "శబ్దాన్ని ఆన్ చేయండి" : "Unmute video");
+      soundButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="volume-shape" d="M4 10v4h4l5 4V6l-5 4z"/><path class="volume-wave" d="M16 9a5 5 0 0 1 0 6m2-9a9 9 0 0 1 0 12"/><path class="mute-mark" d="m16 9 5 6m0-6-5 6"/></svg>';
+
+      const updateSoundButton = () => {
+        soundButton.classList.toggle("is-muted", media.muted);
+        soundButton.setAttribute("aria-label", media.muted
+          ? (document.documentElement.lang === "te" ? "శబ్దాన్ని ఆన్ చేయండి" : "Unmute video")
+          : (document.documentElement.lang === "te" ? "శబ్దాన్ని మ్యూట్ చేయండి" : "Mute video"));
+      };
+      const updatePlayButton = () => {
+        playButton.classList.toggle("is-playing", !media.paused);
+        playButton.setAttribute("aria-label", media.paused
+          ? (document.documentElement.lang === "te" ? "వీడియోను ప్లే చేయండి" : "Play video")
+          : (document.documentElement.lang === "te" ? "వీడియోను పాజ్ చేయండి" : "Pause video"));
+      };
+
+      playButton.addEventListener("click", () => {
+        if (media.paused) {
+          playVideo();
+        } else {
+          media.pause();
+        }
       });
+      soundButton.addEventListener("click", () => {
+        media.muted = !media.muted;
+        updateSoundButton();
+      });
+      media.addEventListener("play", updatePlayButton);
+      media.addEventListener("pause", updatePlayButton);
+      media.addEventListener("volumechange", updateSoundButton);
+      media.addEventListener("mouseenter", playVideo);
+      media.addEventListener("touchstart", () => videoShell.classList.add("is-active"), { passive: true });
+      videoShell.addEventListener("pointerleave", (event) => {
+        if (event.pointerType !== "touch") {
+          videoShell.classList.remove("is-active");
+        }
+      });
+      videoShell.addEventListener("focusout", (event) => {
+        if (!videoShell.contains(event.relatedTarget)) {
+          videoShell.classList.remove("is-active");
+        }
+      });
+      media.addEventListener("dblclick", () => {
+        if (Date.now() - lastVideoTap > 500) {
+          toggleVideoSound();
+        }
+      });
+      media.addEventListener("touchend", (event) => {
+        const now = Date.now();
+        if (now - lastVideoTap < 350) {
+          event.preventDefault();
+          toggleVideoSound();
+          lastVideoTap = now;
+          return;
+        }
+        lastVideoTap = now;
+      });
+      updatePlayButton();
+      updateSoundButton();
+      controls.append(playButton, soundButton);
+      videoShell.append(media, controls);
+      mediaDisplay = videoShell;
     } else {
       media.alt = item.title || "YSRCP CHKP campaign";
       media.loading = "lazy";
@@ -312,7 +398,7 @@ function renderGallery() {
         : item.description;
       caption.append(description);
     }
-    card.append(media, caption);
+    card.append(mediaDisplay, caption);
     gallery.append(card);
   });
 

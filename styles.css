@@ -214,7 +214,10 @@ body.telugu .candidate-info p, body.telugu .about-copy > p, body.telugu .gallery
   font-size: 8px; font-weight: 700; letter-spacing: .15em;
 }
 .hero-art-index { top: 31px; }
-.hero-art-caption { bottom: 30px; }
+.hero-art-caption {
+  bottom: 30px; left: 34px; width: calc(100% - 68px);
+  text-align: center;
+}
 .hero-art-caption, .hero-art-index { font-family: "DM Sans", sans-serif; }
 .hero-art-caption { letter-spacing: .08em; }
 body.telugu .hero-art-caption { font-family: var(--telugu); letter-spacing: 0; }
@@ -237,10 +240,11 @@ body.telugu .hero-art-caption { font-family: var(--telugu); letter-spacing: 0; }
 body.telugu .hero-stamp { font-family: var(--telugu); }
 .hero-place {
   position: absolute; bottom: 45px; left: 50%; transform: translateX(-50%);
-  display: grid; text-align: center; gap: 7px; color: var(--white);
+  width: calc(100% - 48px); display: grid; justify-items: center;
+  text-align: center; gap: 7px; color: var(--white);
 }
 .hero-place span:first-child { color: var(--white); font-weight: 700; font-size: 15px; letter-spacing: .22em; }
-.hero-place span:last-child { font-size: 8px; letter-spacing: .15em; }
+.hero-place span:last-child { max-width: 100%; font-size: 8px; line-height: 1.5; letter-spacing: .15em; }
 .hero-footer {
   position: absolute; z-index: 2; bottom: 28px; left: 7.2%; right: 7.2%;
   display: flex; align-items: center; justify-content: space-between;
@@ -374,7 +378,39 @@ body.telugu[data-election="mptc"] .campaign-grid h2 {
 .media-frame { width: 100%; height: 230px; display: block; object-fit: cover; background: var(--blue); }
 img.media-frame { transition: transform .8s var(--ease-premium); }
 .media-card:hover img.media-frame { transform: scale(1.035); }
+.video-shell { position: relative; overflow: hidden; background: var(--blue); }
 video.media-frame { object-fit: contain; background: var(--blue); }
+.video-controls {
+  position: absolute; left: 14px; bottom: 14px; z-index: 1;
+  display: flex; gap: 7px; padding: 6px;
+  border: 1px solid rgba(255, 255, 255, .45); border-radius: 12px;
+  background: rgba(7, 86, 164, .94);
+  box-shadow: 0 8px 24px rgba(7, 86, 164, .35);
+  opacity: 0; visibility: hidden; transform: translateY(7px);
+  transition: opacity .24s ease, visibility .24s ease, transform .3s var(--ease-premium);
+  backdrop-filter: blur(8px);
+}
+.video-shell:hover .video-controls,
+.video-shell:focus-within .video-controls,
+.video-shell.is-active .video-controls { opacity: 1; visibility: visible; transform: translateY(0); }
+.video-control-button {
+  width: 36px; height: 36px; padding: 0; display: grid; place-items: center;
+  border: 1px solid rgba(255, 255, 255, .55); border-radius: 9px;
+  background: transparent; color: var(--white); cursor: pointer;
+  transition: background-color .2s ease, color .2s ease, transform .2s ease, border-color .2s ease;
+}
+.video-control-button:hover, .video-control-button:focus-visible {
+  background: var(--green); color: var(--white); border-color: var(--green-on-blue); transform: translateY(-1px);
+}
+.video-control-button svg { width: 17px; height: 17px; fill: currentColor; }
+.video-control-button .pause-icon, .video-control-button .mute-mark { display: none; }
+.video-control-button.is-playing .play-icon { display: none; }
+.video-control-button.is-playing .pause-icon { display: block; }
+.video-control-button.is-muted .volume-wave { display: none; }
+.video-control-button.is-muted .mute-mark { display: block; }
+.video-control-button .volume-wave, .video-control-button .mute-mark {
+  fill: none; stroke: currentColor; stroke-linecap: round; stroke-width: 1.8;
+}
 .media-caption { padding: 17px 18px 19px; }
 .media-caption h3 { margin: 0 0 5px; font-size: 13px; }
 .media-caption p { margin: 0; color: var(--blue); font-size: 10px; line-height: 1.6; }
@@ -550,6 +586,8 @@ body.telugu .presenter-intro-label, body.telugu .presenter-intro-card strong { f
   .hero-stamp { width: 62px; height: 62px; top: 57px; right: 25px; font-size: 7px; }
   .hero-place { bottom: 39px; }
   .hero-art-index, .hero-art-caption { left: 27px; font-size: 7px; }
+  .hero-art-caption { width: calc(100% - 54px); text-align: center; }
+  .hero-place { width: calc(100% - 42px); }
   .hero-art-index { top: 28px; }
   .hero-art-caption { bottom: 25px; }
   .hero-art::before { inset: 13px; }
