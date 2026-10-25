@@ -1,0 +1,380 @@
+:root {
+  font-family: "DM Sans", "Noto Sans Telugu", sans-serif;
+  color: #0756a4;
+  background: #0756a4;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --blue: #0756a4;
+  --white: #ffffff;
+  --green: #138443;
+  --blue-deep: var(--blue);
+  --ink: var(--blue);
+  --paper: var(--white);
+  --muted: var(--blue);
+  --telugu: "Noto Sans Telugu", sans-serif;
+}
+@keyframes fan-spin {
+  to { transform: rotate(360deg); }
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+section[id] { scroll-margin-top: 16px; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible { outline: 3px solid var(--green); outline-offset: 3px; }
+
+.site-header {
+  height: 82px;
+  padding: 0 7.2%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--white);
+  position: relative;
+  z-index: 5;
+}
+.brand { display: inline-flex; align-items: center; gap: 11px; }
+.brand-mark {
+  width: 39px; height: 39px; display: grid; place-items: center;
+  background: var(--green);
+}
+.symbol-definitions { position: absolute; width: 0; height: 0; overflow: hidden; }
+.fan-symbol { display: block; overflow: visible; color: var(--green); }
+.fan-stem, .fan-blades, .fan-hub { fill: currentColor; }
+.fan-hub { fill: var(--white); }
+.fan-blades {
+  transform-box: view-box; transform-origin: 50px 54px;
+  animation: fan-spin .9s linear infinite;
+}
+.fan-logo { width: 31px; height: 31px; color: var(--white); }
+.fan-section { width: 22px; height: 22px; flex: 0 0 auto; }
+.brand-copy { display: grid; gap: 2px; }
+.brand-copy strong, .footer-brand { font-size: 15px; letter-spacing: .06em; }
+.brand-copy strong span, .footer-brand span { color: var(--blue); }
+.brand-copy small { color: var(--muted); font-size: 8px; letter-spacing: .16em; }
+body.telugu .brand-copy small, body.telugu .section-kicker, body.telugu .eyebrow,
+body.telugu .hero-footer, body.telugu .candidate-label, body.telugu .back-top,
+body.telugu .hero-place span:last-child { font-family: var(--telugu); letter-spacing: 0; }
+.main-nav { display: flex; gap: 36px; align-items: center; }
+.main-nav a { color: var(--blue); font-size: 12px; font-weight: 600; transition: color .25s ease; }
+.main-nav a:hover { color: var(--green); }
+.language-toggle {
+  min-width: 104px; min-height: 37px; border: 1px solid var(--blue); border-radius: 30px;
+  background: var(--white); color: var(--blue); display: inline-flex; align-items: center;
+  justify-content: center; gap: 8px; cursor: pointer; font-size: 11px; font-weight: 700;
+}
+.language-dot { height: 7px; width: 7px; border-radius: 50%; background: var(--green); }
+
+.hero {
+  min-height: 585px; padding: 86px 7.2% 44px; position: relative; overflow: hidden;
+  color: var(--white); background: var(--blue);
+}
+.hero-content {
+  position: relative; z-index: 2; width: min(540px, 56%);
+  animation: copy-arrive .7s cubic-bezier(.2,.75,.25,1) both;
+}
+.eyebrow, .section-kicker {
+  display: flex; align-items: center; gap: 10px; font-size: 9px;
+  font-weight: 700; letter-spacing: .17em; text-transform: uppercase;
+}
+.eyebrow { color: var(--white); }
+.eyebrow-line { display: inline-block; width: 27px; height: 2px; background: var(--green); }
+.hero h1 {
+  font-size: clamp(55px, 7.1vw, 91px); line-height: 1.01; letter-spacing: -.065em;
+  margin: 27px 0 18px; font-weight: 700; text-wrap: balance;
+}
+body.telugu .hero h1 { font-family: var(--telugu); font-size: clamp(43px, 6.2vw, 78px); line-height: 1.28; letter-spacing: -.045em; }
+.hero-intro { max-width: 415px; color: var(--white); font-size: 14px; line-height: 1.8; margin: 0 0 30px; }
+body.telugu .hero-intro, body.telugu .campaign-note, body.telugu .gallery-heading > p,
+body.telugu .candidate-info p, body.telugu .about-copy > p, body.telugu .gallery-empty p { font-family: var(--telugu); line-height: 1.9; }
+.button {
+  display: inline-flex; align-items: center; gap: 24px; padding: 14px 18px;
+  font-size: 11px; font-weight: 700; transition: transform .25s ease, background-color .25s ease;
+}
+.button:hover { transform: translateY(-3px); }
+.button.button-light { background-color: var(--green); color: var(--white); }
+.button-light:hover { background-color: var(--green); }
+.hero-art {
+  position: absolute; z-index: 1; width: 400px; height: 400px; top: 65px; right: 10%;
+  border: 1px solid var(--white);
+  background:
+    linear-gradient(var(--green), var(--green)) right 24px top 24px / 54px 5px no-repeat,
+    linear-gradient(var(--green), var(--green)) right 24px top 36px / 36px 5px no-repeat;
+  animation: art-arrive .9s cubic-bezier(.2,.75,.25,1) both;
+}
+.hero-art::before {
+  content: ""; position: absolute; inset: 17px; border: 1px solid var(--white);
+  pointer-events: none;
+}
+.hero-art-index, .hero-art-caption {
+  position: absolute; left: 34px; color: var(--white);
+  font-size: 8px; font-weight: 700; letter-spacing: .15em;
+}
+.hero-art-index { top: 31px; }
+.hero-art-caption { bottom: 30px; }
+.hero-art-caption, .hero-art-index { font-family: "DM Sans", sans-serif; }
+.hero-art-caption { letter-spacing: .08em; }
+body.telugu .hero-art-caption { font-family: var(--telugu); letter-spacing: 0; }
+.hero-art-index::before { content: ""; display: inline-block; width: 15px; height: 2px; margin: 0 8px 2px 0; background: var(--green); }
+.hero-monogram {
+  position: absolute; top: 66%; left: 50%; transform: translate(-50%, -57%);
+  color: var(--white); font-size: 46px; font-weight: 800; letter-spacing: -.1em;
+}
+.hero-monogram span { color: var(--green); }
+.fan-hero {
+  position: absolute; width: 124px; height: 124px;
+  top: 76px; left: 50%; transform: translateX(-50%); color: var(--white);
+}
+.hero-stamp {
+  position: absolute; top: 69px; right: 32px; width: 76px; height: 76px;
+  background-color: var(--green); color: var(--white); display: grid; place-items: center;
+  text-align: center; padding: 12px; font-size: 8px; font-weight: 800; line-height: 1.4;
+  animation: badge-arrive .7s .45s cubic-bezier(.2,.75,.25,1) both;
+}
+body.telugu .hero-stamp { font-family: var(--telugu); }
+.hero-place {
+  position: absolute; bottom: 45px; left: 50%; transform: translateX(-50%);
+  display: grid; text-align: center; gap: 7px; color: var(--white);
+}
+.hero-place span:first-child { color: var(--white); font-weight: 700; font-size: 15px; letter-spacing: .22em; }
+.hero-place span:last-child { font-size: 8px; letter-spacing: .15em; }
+.hero-footer {
+  position: absolute; z-index: 2; bottom: 28px; left: 7.2%; right: 7.2%;
+  display: flex; align-items: center; justify-content: space-between;
+  padding-top: 17px; border-top: 1px solid var(--white);
+  color: var(--white); font-size: 9px; letter-spacing: .1em;
+}
+.scroll-cue { display: inline-flex; align-items: center; gap: 12px; }
+.scroll-cue span:last-child { color: var(--green); font-size: 15px; }
+.scroll-cue span:last-child { animation: arrow-nudge 1.8s ease-in-out infinite; }
+
+.section-wrap { padding-left: 10%; padding-right: 10%; }
+.campaign-section { padding-top: 92px; padding-bottom: 86px; background: var(--blue); }
+.campaign-section .section-kicker { color: var(--white); margin-bottom: 25px; }
+.campaign-section .section-kicker span:first-of-type { color: var(--white); }
+.campaign-section .fan-section, .about-copy .fan-section { color: var(--white); }
+.campaign-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 50px; }
+.campaign-grid h2, .gallery-heading h2, .about-copy h2 {
+  color: var(--ink); font-size: clamp(37px, 5vw, 59px); line-height: 1.08;
+  letter-spacing: -.06em; margin: 0; font-weight: 700;
+}
+body.telugu .campaign-grid h2, body.telugu .gallery-heading h2, body.telugu .about-copy h2 {
+  font-family: var(--telugu); font-size: clamp(33px, 4vw, 47px); line-height: 1.55; letter-spacing: -.04em;
+}
+.campaign-grid h2 em, .gallery-heading h2 em, .about-copy h2 em { color: var(--blue); font-style: normal; }
+.campaign-grid h2, .campaign-grid h2 em { color: var(--white); }
+.gallery-heading h2 em, .about-copy h2 em { color: var(--green); }
+.candidate-card {
+  min-height: 155px; background: var(--white); border: 1px solid var(--white);
+  display: flex; align-items: center; gap: 20px; padding: 23px 25px;
+  transition: transform .3s ease;
+}
+.candidate-card:hover { transform: translateY(-5px); }
+.candidate-initial {
+  width: 78px; height: 91px; display: grid; place-items: center; flex: 0 0 auto;
+  background: var(--green); color: var(--white);
+  font-weight: 700; font-size: 38px;
+}
+.candidate-label { color: var(--green); font-size: 9px; letter-spacing: .12em; font-weight: 700; }
+.candidate-info h3 { margin: 9px 0 2px; font-size: 23px; letter-spacing: .08em; }
+.candidate-info p { color: var(--muted); margin: 0; font-size: 11px; }
+.candidate-arrow { align-self: flex-start; margin-left: auto; color: var(--blue); font-size: 18px; }
+.campaign-note { color: var(--white); max-width: 440px; margin: 27px 0 0; font-size: 12px; line-height: 1.8; }
+
+.gallery-section { background: var(--white); padding: 86px 0 94px; }
+.gallery-heading { display: flex; justify-content: space-between; align-items: end; gap: 35px; margin-bottom: 35px; }
+.gallery-heading .section-kicker { margin-bottom: 22px; }
+.gallery-heading > p { max-width: 260px; color: var(--blue); font-size: 12px; line-height: 1.8; margin: 0 0 6px; }
+.gallery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 15px; }
+.media-card { background: var(--white); min-width: 0; border: 1px solid var(--blue); transition: transform .3s ease; }
+.media-card:hover { transform: translateY(-5px); }
+.media-frame { width: 100%; height: 230px; display: block; object-fit: cover; background: var(--blue); }
+video.media-frame { object-fit: contain; background: var(--blue); }
+.media-caption { padding: 15px 16px 17px; }
+.media-caption h3 { margin: 0 0 5px; font-size: 13px; }
+.media-caption p { margin: 0; color: var(--blue); font-size: 10px; line-height: 1.6; }
+.media-caption .media-date { color: var(--green); text-transform: uppercase; letter-spacing: .1em; font-weight: 700; margin-bottom: 8px; }
+.gallery-empty {
+  min-height: 250px; background: var(--white); border: 1px dashed var(--blue);
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center; padding: 28px;
+}
+.empty-icon { color: var(--green); font-size: 22px; }
+.gallery-empty h3 { margin: 12px 0 7px; font-size: 16px; }
+.gallery-empty p { max-width: 360px; margin: 0; font-size: 12px; color: var(--blue); line-height: 1.7; }
+
+.about-section { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: 8%; padding-top: 98px; padding-bottom: 102px; background: var(--blue); }
+.about-mark {
+  aspect-ratio: 1; max-width: 300px; background: var(--white); color: var(--blue);
+  display: grid; place-items: center; position: relative; overflow: hidden;
+  font-size: clamp(42px, 5.5vw, 69px); letter-spacing: -.07em; font-weight: 800;
+}
+.about-mark::before {
+  content: ""; position: absolute; inset: 8%; border: 1px solid var(--blue);
+}
+.fan-about { width: 94px; height: 94px; color: var(--green); }
+.about-mark span {
+  position: absolute; bottom: 16%; color: var(--blue);
+  font-size: 12px; letter-spacing: .2em; font-weight: 700;
+}
+.about-copy .section-kicker { margin-bottom: 19px; }
+.about-copy h2, .about-copy h2 em { color: var(--white); }
+.about-copy .section-kicker { color: var(--white); }
+.about-copy .section-kicker span:first-of-type { color: var(--white); }
+.about-copy > p { max-width: 460px; margin: 20px 0 0; color: var(--white); font-size: 13px; line-height: 1.9; }
+
+.site-footer {
+  min-height: 86px; border-top: 1px solid var(--white); padding: 20px 7.2%;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  background: var(--blue); color: var(--white);
+}
+.site-footer p { color: var(--white); font-size: 10px; }
+.footer-brand, .footer-brand span { color: var(--white); }
+.footer-brand { display: inline-flex; align-items: center; gap: 9px; }
+.fan-footer { width: 26px; height: 26px; color: var(--white); }
+.back-top { display: inline-flex; align-items: center; gap: 11px; color: var(--green); font-size: 9px; letter-spacing: .1em; font-weight: 700; }
+.back-top span:last-child { font-size: 16px; }
+
+.reveal-item { opacity: 1; transform: none; }
+.reveal-enabled .reveal-item {
+  opacity: 0; transform: translateY(22px);
+  transition: opacity .65s ease, transform .65s cubic-bezier(.2,.75,.25,1);
+}
+.reveal-enabled .reveal-item.is-visible { opacity: 1; transform: translateY(0); }
+.reveal-enabled .media-card:nth-child(2) { transition-delay: .1s; }
+.reveal-enabled .media-card:nth-child(3) { transition-delay: .2s; }
+
+@keyframes art-arrive {
+  from { opacity: 0; translate: 0 20px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes copy-arrive {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes badge-arrive {
+  from { opacity: 0; translate: 0 -8px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@keyframes arrow-nudge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+
+@media (max-width: 850px) {
+  .site-header { padding: 0 5%; }
+  .hero { padding-left: 6%; padding-right: 6%; }
+  .hero-art { right: -4%; transform: scale(.82); transform-origin: center right; }
+  .hero-content { width: 60%; }
+  .hero-footer { left: 6%; right: 6%; }
+  .section-wrap { padding-left: 7%; padding-right: 7%; }
+  .campaign-grid { gap: 25px; }
+  .candidate-card { padding: 18px; gap: 14px; }
+  .candidate-initial { width: 66px; height: 80px; }
+  .media-frame { height: 190px; }
+}
+@media (max-width: 620px) {
+  .site-header {
+    height: auto; min-height: 0; padding: 9px 16px 7px;
+    display: grid; grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "brand language" "nav nav"; gap: 7px 12px;
+    position: sticky; top: 0; border-bottom: 1px solid var(--blue);
+  }
+  .brand { grid-area: brand; min-width: 0; }
+  .brand-mark { width: 34px; height: 34px; }
+  .brand-copy strong { font-size: 14px; }
+  .main-nav {
+    grid-area: nav; width: 100%; justify-content: space-around; gap: 4px;
+    border-top: 1px solid var(--blue); padding-top: 4px;
+  }
+  .main-nav a {
+    min-width: 64px; min-height: 44px; padding: 0 8px;
+    display: inline-flex; justify-content: center; align-items: center;
+    font-size: 12px;
+  }
+  .language-toggle {
+    grid-area: language; min-width: 86px; min-height: 44px;
+    padding: 0 12px; justify-self: end;
+  }
+  .language-label { display: inline; }
+  section[id] { scroll-margin-top: 115px; }
+  .hero { min-height: 0; padding: 50px 20px 21px; }
+  .hero-content { width: 100%; }
+  .hero h1 { font-size: clamp(48px, 13vw, 68px); }
+  body.telugu .hero h1 { font-size: clamp(40px, 10.5vw, 58px); }
+  .hero-intro { max-width: 440px; font-size: 15px; line-height: 1.75; }
+  .button { min-height: 48px; gap: 14px; padding: 12px 15px; font-size: 12px; }
+  .hero-art {
+    position: relative; top: auto; right: auto; width: min(295px, 82vw);
+    height: min(295px, 82vw); margin: 24px auto 0;
+    transform: none;
+  }
+  .hero-monogram { top: 66%; font-size: 36px; }
+  .fan-hero { width: 96px; height: 96px; top: 61px; }
+  .hero-stamp { width: 62px; height: 62px; top: 57px; right: 25px; font-size: 7px; }
+  .hero-place { bottom: 39px; }
+  .hero-art-index, .hero-art-caption { left: 27px; font-size: 7px; }
+  .hero-art-index { top: 28px; }
+  .hero-art-caption { bottom: 25px; }
+  .hero-art::before { inset: 13px; }
+  .hero-art {
+    background:
+      linear-gradient(var(--green), var(--green)) right 20px top 20px / 42px 4px no-repeat,
+      linear-gradient(var(--green), var(--green)) right 20px top 30px / 28px 4px no-repeat;
+  }
+  .hero-footer {
+    position: relative; bottom: auto; left: auto; right: auto; margin-top: 16px;
+    padding-top: 13px; font-size: 9px; letter-spacing: .04em; gap: 10px;
+  }
+  .scroll-cue { gap: 6px; white-space: nowrap; }
+  .campaign-section, .gallery-section { padding-top: 55px; padding-bottom: 58px; }
+  .campaign-grid { grid-template-columns: 1fr; gap: 25px; }
+  .campaign-grid h2, .gallery-heading h2, .about-copy h2 { font-size: clamp(36px, 10vw, 43px); }
+  body.telugu .campaign-grid h2, body.telugu .gallery-heading h2, body.telugu .about-copy h2 { font-size: clamp(31px, 8.6vw, 36px); }
+  .candidate-card { min-height: 135px; }
+  .candidate-info { min-width: 0; }
+  .candidate-info p { font-size: 12px; }
+  .gallery-heading { align-items: start; flex-direction: column; gap: 15px; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .media-frame { height: auto; aspect-ratio: 4 / 3; max-height: 420px; min-height: 0; }
+  video.media-frame { aspect-ratio: 16 / 9; }
+  .media-caption { padding: 16px; }
+  .media-caption h3 { font-size: 15px; }
+  .media-caption p { font-size: 12px; }
+  .about-section { grid-template-columns: 1fr; gap: 30px; padding-top: 60px; padding-bottom: 65px; }
+  .about-mark { width: min(210px, 65vw); }
+  .fan-about { width: 74px; height: 74px; }
+  .campaign-note, .gallery-heading > p, .about-copy > p { font-size: 14px; }
+  .gallery-empty { min-height: 220px; padding: 22px 16px; }
+  .gallery-empty h3 { font-size: 17px; }
+  .gallery-empty p { font-size: 14px; }
+  .site-footer { padding: 18px 20px; flex-wrap: wrap; gap: 10px 16px; }
+  .site-footer p { order: 3; width: 100%; margin: 0; font-size: 12px; }
+  .back-top { min-height: 44px; }
+}
+@media (max-width: 360px) {
+  .site-header { padding-left: 12px; padding-right: 12px; }
+  .brand { gap: 8px; }
+  .brand-copy strong { font-size: 13px; }
+  .brand-copy small { font-size: 7px; }
+  .language-toggle { min-width: 78px; padding: 0 9px; }
+  .main-nav a { min-width: 58px; padding: 0 5px; font-size: 11px; }
+  .hero { padding-left: 16px; padding-right: 16px; }
+  .hero-footer { font-size: 8px; }
+  .section-wrap { padding-left: 18px; padding-right: 18px; }
+  .candidate-card { gap: 11px; padding: 15px 12px; }
+  .candidate-initial { width: 56px; height: 70px; }
+  .candidate-info h3 { font-size: 20px; }
+  .candidate-label { font-size: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
