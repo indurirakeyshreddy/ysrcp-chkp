@@ -165,7 +165,7 @@ function setupPresenterIntro() {
   intro.innerHTML = `
     <div class="presenter-intro-card">
       <span class="presenter-intro-rule" aria-hidden="true"></span>
-      <span class="presenter-intro-label" data-en="PRESENTED BY" data-te="సమర్పణ">సమర్పణ</span>
+      <span class="presenter-intro-label" data-en="PRESENTED BY" data-te="సమర్పించునది">సమర్పించునది</span>
       <strong data-en="Merugu Venkata Reddy" data-te="మెరుగు వెంకట రెడ్డి">మెరుగు వెంకట రెడ్డి</strong>
       <span class="presenter-intro-rule" aria-hidden="true"></span>
     </div>
