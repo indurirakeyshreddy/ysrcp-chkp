@@ -303,6 +303,11 @@ function renderGallery() {
       soundButton.type = "button";
       soundButton.setAttribute("aria-label", document.documentElement.lang === "te" ? "శబ్దాన్ని ఆన్ చేయండి" : "Unmute video");
       soundButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="volume-shape" d="M4 10v4h4l5 4V6l-5 4z"/><path class="volume-wave" d="M16 9a5 5 0 0 1 0 6m2-9a9 9 0 0 1 0 12"/><path class="mute-mark" d="m16 9 5 6m0-6-5 6"/></svg>';
+      const fullscreenButton = document.createElement("button");
+      fullscreenButton.className = "video-control-button";
+      fullscreenButton.type = "button";
+      fullscreenButton.setAttribute("aria-label", document.documentElement.lang === "te" ? "పూర్తి తెరలో తెరవండి" : "Enter fullscreen");
+      fullscreenButton.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path class="fullscreen-enter" d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/><path class="fullscreen-exit" d="M9 4v5H4m11-5v5h5m-5 11v-5h5m-11 5v-5H4"/></svg>';
 
       const updateSoundButton = () => {
         soundButton.classList.toggle("is-muted", media.muted);
@@ -316,6 +321,35 @@ function renderGallery() {
           ? (document.documentElement.lang === "te" ? "వీడియోను ప్లే చేయండి" : "Play video")
           : (document.documentElement.lang === "te" ? "వీడియోను పాజ్ చేయండి" : "Pause video"));
       };
+      const isFullscreen = () => document.fullscreenElement === videoShell || media.webkitDisplayingFullscreen === true;
+      const updateFullscreenButton = () => {
+        const fullscreen = isFullscreen();
+        fullscreenButton.classList.toggle("is-fullscreen", fullscreen);
+        fullscreenButton.setAttribute("aria-label", fullscreen
+          ? (document.documentElement.lang === "te" ? "పూర్తి తెర నుంచి బయటకు రండి" : "Exit fullscreen")
+          : (document.documentElement.lang === "te" ? "పూర్తి తెరలో తెరవండి" : "Enter fullscreen"));
+      };
+      const toggleFullscreen = async () => {
+        try {
+          if (isFullscreen()) {
+            if (document.exitFullscreen) {
+              await document.exitFullscreen();
+            } else if (media.webkitExitFullscreen) {
+              media.webkitExitFullscreen();
+            }
+            return;
+          }
+          if (videoShell.requestFullscreen) {
+            await videoShell.requestFullscreen();
+          } else if (media.webkitEnterFullscreen) {
+            media.webkitEnterFullscreen();
+          } else {
+            console.error("Fullscreen playback is not supported by this browser.");
+          }
+        } catch (error) {
+          console.error("Unable to change campaign video fullscreen mode.", error);
+        }
+      };
 
       playButton.addEventListener("click", () => {
         if (media.paused) {
@@ -328,6 +362,10 @@ function renderGallery() {
         media.muted = !media.muted;
         updateSoundButton();
       });
+      fullscreenButton.addEventListener("click", toggleFullscreen);
+      videoShell.addEventListener("fullscreenchange", updateFullscreenButton);
+      media.addEventListener("webkitbeginfullscreen", updateFullscreenButton);
+      media.addEventListener("webkitendfullscreen", updateFullscreenButton);
       media.addEventListener("play", updatePlayButton);
       media.addEventListener("pause", updatePlayButton);
       media.addEventListener("volumechange", updateSoundButton);
@@ -360,7 +398,8 @@ function renderGallery() {
       });
       updatePlayButton();
       updateSoundButton();
-      controls.append(playButton, soundButton);
+      updateFullscreenButton();
+      controls.append(playButton, soundButton, fullscreenButton);
       videoShell.append(media, controls);
       mediaDisplay = videoShell;
     } else {
