@@ -424,6 +424,22 @@ video.media-frame { object-fit: contain; background: var(--blue); transform: sca
 @keyframes media-light-sweep {
   to { transform: translateX(115%) skewX(-18deg); }
 }
+@media (max-width: 700px), (hover: none), (pointer: coarse) {
+  .reveal-enabled .media-card.is-visible .media-visual::before {
+    opacity: 1;
+    animation: media-light-sweep 1.15s .2s var(--ease-premium) both;
+  }
+  .reveal-enabled .media-card.is-visible img.media-frame {
+    animation: media-mobile-reveal 1.25s var(--ease-premium) both;
+  }
+  .reveal-enabled .media-card.is-visible video.media-frame {
+    animation: media-mobile-reveal 1.25s var(--ease-premium) both;
+  }
+}
+@keyframes media-mobile-reveal {
+  from { transform: scale(1.055); }
+  to { transform: scale(1); }
+}
 .video-controls {
   position: absolute; left: 14px; bottom: 14px; z-index: 2;
   display: flex; gap: 7px; padding: 6px;
