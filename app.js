@@ -131,6 +131,27 @@ async function loadElectionMenu() {
   }
 }
 
+function setupElectionMenuHover() {
+  const menu = document.querySelector(".election-menu");
+  if (!menu || !window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    return;
+  }
+
+  menu.addEventListener("pointerenter", () => {
+    menu.open = true;
+  });
+  menu.addEventListener("pointerleave", () => {
+    if (!menu.contains(document.activeElement)) {
+      menu.open = false;
+    }
+  });
+  menu.addEventListener("focusout", (event) => {
+    if (!menu.contains(event.relatedTarget) && !menu.matches(":hover")) {
+      menu.open = false;
+    }
+  });
+}
+
 function setupScrollReveals() {
   if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     return;
@@ -234,5 +255,6 @@ function renderGallery() {
 }
 
 setupScrollReveals();
+setupElectionMenuHover();
 renderGallery();
 loadElectionMenu();

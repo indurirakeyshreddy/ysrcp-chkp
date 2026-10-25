@@ -129,6 +129,16 @@ body.telugu .hero-place span:last-child { font-family: var(--telugu); letter-spa
   margin: 27px 0 18px; font-weight: 700; text-wrap: balance;
 }
 body.telugu .hero h1 { font-family: var(--telugu); font-size: clamp(43px, 6.2vw, 78px); line-height: 1.28; letter-spacing: -.045em; }
+body.telugu[data-election="mptc"] .hero h1 {
+  max-width: 490px; margin: 24px 0 28px; padding: 6px 0;
+  font-size: clamp(33px, 4.4vw, 52px); line-height: 1.45; letter-spacing: -.035em;
+}
+body[data-election="mptc"] .hero-title-line {
+  display: block; white-space: nowrap;
+}
+body[data-election="mptc"] .hero-title-line + .hero-title-line {
+  margin-top: .25em;
+}
 .hero-intro { max-width: 415px; color: var(--white); font-size: 14px; line-height: 1.8; margin: 0 0 30px; }
 .featured-date {
   width: fit-content; margin: -17px 0 20px; padding: 7px 10px;
@@ -442,6 +452,10 @@ video.media-frame { object-fit: contain; background: var(--blue); }
   .hero-content { width: 100%; }
   .hero h1 { font-size: clamp(48px, 13vw, 68px); }
   body.telugu .hero h1 { font-size: clamp(40px, 10.5vw, 58px); }
+  body.telugu[data-election="mptc"] .hero h1 {
+    max-width: 100%; margin: 22px 0 26px; padding: 5px 0;
+    font-size: clamp(29px, 7.2vw, 39px); line-height: 1.45;
+  }
   .hero-intro { max-width: 440px; font-size: 15px; line-height: 1.75; }
   .featured-date { margin-top: -14px; }
   .button { min-height: 48px; gap: 14px; padding: 12px 15px; font-size: 12px; }
