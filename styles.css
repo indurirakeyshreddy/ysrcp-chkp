@@ -258,7 +258,10 @@ body.telugu .hero-art-caption { font-family: var(--telugu); letter-spacing: 0; }
   text-align: center; padding: 12px; font-size: 8px; font-weight: 800; line-height: 1.4; border-radius: 50%;
   animation: badge-arrive .7s .45s cubic-bezier(.2,.75,.25,1) both;
 }
-body.telugu .hero-stamp { font-family: var(--telugu); }
+body.telugu .hero-stamp {
+  font-family: var(--telugu); line-height: 2; padding: 10px;
+  overflow-wrap: anywhere;
+}
 .hero-place {
   position: absolute; bottom: 45px; left: 50%; transform: translateX(-50%);
   width: calc(100% - 48px); display: grid; justify-items: center;
@@ -350,7 +353,20 @@ body.telugu .election-title { font-family: var(--telugu); font-size: 13px; }
 .campaign-section .section-kicker { color: var(--white); margin-bottom: 25px; }
 .campaign-section .section-kicker span:first-of-type { color: var(--green-on-blue); }
 .campaign-section .fan-section, .about-copy .fan-section { color: var(--green-on-blue); }
-.campaign-grid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 50px; }
+.campaign-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: 50px; }
+body[data-election="mptc"] .campaign-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+body[data-election="mptc"] .candidate-heading { text-align: center; }
+body[data-election="mptc"] .candidate-card {
+  width: min(100%, 680px); margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr);
+  justify-items: center; gap: 12px; padding: 28px;
+}
+body[data-election="mptc"] .candidate-photo {
+  width: clamp(140px, 22vw, 190px); height: clamp(140px, 22vw, 190px);
+  border-radius: 14px;
+}
+body[data-election="mptc"] .candidate-info { width: min(100%, 540px); text-align: center; }
+body[data-election="mptc"] .candidate-info h3 { margin-top: 7px; }
+body[data-election="mptc"] .candidate-arrow { display: none; }
 .campaign-grid h2, .gallery-heading h2, .about-copy h2 {
   color: var(--ink); font-size: clamp(37px, 5vw, 59px); line-height: 1.08;
   letter-spacing: -.06em; margin: 0; font-weight: 700;
@@ -366,6 +382,7 @@ body.telugu[data-election="mptc"] .campaign-grid h2 {
 .gallery-heading h2 em { color: var(--green); }
 .about-copy h2 em { color: var(--green-on-blue); }
 .candidate-card {
+  min-width: 0;
   min-height: 155px; background: var(--white); border: 1px solid var(--white); border-radius: var(--radius-card);
   display: flex; align-items: center; gap: 20px; padding: 23px 25px;
   box-shadow: var(--shadow-card); transition: transform .45s var(--ease-premium), box-shadow .45s ease;
@@ -379,8 +396,18 @@ body.telugu[data-election="mptc"] .campaign-grid h2 {
 .candidate-photo { display: block; object-fit: cover; border-radius: 10px; box-shadow: 0 8px 20px rgba(7, 86, 164, .18); }
 .candidate-initial .fan-symbol { width: 48px; height: 48px; color: var(--white); }
 .candidate-label { color: var(--green); font-size: 9px; letter-spacing: .12em; font-weight: 700; }
-.candidate-info h3 { margin: 9px 0 2px; font-size: 23px; letter-spacing: .08em; }
+.candidate-info h3 { margin: 9px 0 2px; font-size: 23px; letter-spacing: .08em; overflow-wrap: anywhere; }
+body[data-election="mptc"] .candidate-info h3:lang(te) { font-family: var(--telugu); letter-spacing: 0; }
 .candidate-info p { color: var(--muted); margin: 0; font-size: 11px; }
+.candidate-info { min-width: 0; flex: 1; }
+.vote-marquee { width: 100%; overflow: hidden; margin-top: 11px; border-top: 1px solid #d7e7f4; border-bottom: 1px solid #d7e7f4; }
+.vote-marquee-track { display: flex; width: max-content; animation: vote-marquee-scroll 18s linear infinite; }
+.vote-marquee-group { display: flex; flex: 0 0 auto; align-items: center; gap: clamp(28px, 5vw, 52px); padding-right: clamp(28px, 5vw, 52px); }
+.vote-marquee-item { display: flex; flex: 0 0 auto; align-items: center; gap: 9px; }
+.vote-marquee-item img { display: block; width: 46px; height: 30px; object-fit: contain; }
+.vote-marquee-item strong { color: var(--blue); font-size: 14px; line-height: 1.5; white-space: nowrap; }
+body.telugu .vote-marquee-item strong { font-family: var(--telugu); font-size: 15px; }
+@keyframes vote-marquee-scroll { to { transform: translateX(-50%); } }
 .candidate-arrow { align-self: flex-start; margin-left: auto; color: var(--blue); font-size: 18px; }
 .campaign-note { color: var(--white); max-width: 440px; margin: 27px 0 0; font-size: 12px; line-height: 1.8; }
 
@@ -661,6 +688,7 @@ body.telugu .presenter-intro-label, body.telugu .presenter-intro-card strong { f
   .hero-monogram { top: 66%; font-size: 36px; }
   .fan-hero { width: 96px; height: 96px; top: 61px; }
   .hero-stamp { width: 62px; height: 62px; top: 57px; right: 25px; font-size: 7px; }
+  body.telugu .hero-stamp { line-height: 2; padding: 8px; }
   .hero-place { bottom: 39px; }
   .hero-art-index, .hero-art-caption { left: 27px; font-size: 7px; }
   .hero-art-caption { width: calc(100% - 54px); text-align: center; }
@@ -687,12 +715,17 @@ body.telugu .presenter-intro-label, body.telugu .presenter-intro-card strong { f
   .election-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .election-card { min-height: 126px; padding: 16px; }
   .election-type { font-size: 15px; }
-  .campaign-grid { grid-template-columns: 1fr; gap: 25px; }
+  .campaign-grid { grid-template-columns: minmax(0, 1fr); gap: 25px; }
   .campaign-grid h2, .gallery-heading h2, .about-copy h2 { font-size: clamp(36px, 10vw, 43px); }
   body.telugu .campaign-grid h2, body.telugu .gallery-heading h2, body.telugu .about-copy h2 { font-size: clamp(31px, 8.6vw, 36px); }
   body.telugu[data-election="mptc"] .campaign-grid h2 { font-size: clamp(26px, 7vw, 31px); line-height: 1.5; }
   .candidate-card { min-height: 135px; }
+  body[data-election="mptc"] .candidate-card { gap: 11px; padding: 20px 16px; }
+  body[data-election="mptc"] .candidate-photo { width: clamp(140px, 42vw, 180px); height: clamp(140px, 42vw, 180px); }
   .candidate-info { min-width: 0; }
+  body[data-election="mptc"] .candidate-info h3:lang(te) {
+    font-size: clamp(15px, 5vw, 19px); letter-spacing: 0; white-space: nowrap; overflow-wrap: normal;
+  }
   .candidate-info p { font-size: 12px; }
   .gallery-heading { align-items: start; flex-direction: column; gap: 15px; }
   .gallery-grid { grid-template-columns: 1fr; }
@@ -738,4 +771,6 @@ body.telugu .presenter-intro-label, body.telugu .presenter-intro-card strong { f
     transition-duration: .01ms !important;
   }
   .reveal-enabled .media-card { transition-delay: 0s !important; }
+  .vote-marquee-track { animation: none !important; }
+  .vote-marquee-group[aria-hidden="true"] { display: none; }
 }
