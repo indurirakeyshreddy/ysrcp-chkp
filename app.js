@@ -313,14 +313,6 @@ function setupBackgroundMusic() {
     if (button.contains(event.target)) {
       return;
     }
-    const videoInteraction = event.target instanceof Element && event.target.closest(".video-shell");
-    const videoIsPlaying = [...document.querySelectorAll("video.media-frame")].some((video) => !video.paused);
-    if (videoInteraction || videoIsPlaying) {
-      audio.muted = true;
-      playAudio();
-      updateButton();
-      return;
-    }
     if (savedPreference !== "false") {
       audio.muted = false;
       try {
@@ -500,10 +492,6 @@ function renderGallery() {
       media.addEventListener("webkitbeginfullscreen", updateFullscreenButton);
       media.addEventListener("webkitendfullscreen", updateFullscreenButton);
       media.addEventListener("play", () => {
-        if (backgroundMusic) {
-          backgroundMusic.muted = true;
-          refreshBackgroundMusicButton();
-        }
         document.querySelectorAll("video.media-frame").forEach((video) => {
           if (video !== media) {
             video.pause();
