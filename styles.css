@@ -178,6 +178,10 @@ body.telugu .hero-place span:last-child { font-family: var(--telugu); letter-spa
   position: relative; z-index: 2; width: min(540px, 56%);
   animation: copy-arrive .7s cubic-bezier(.2,.75,.25,1) both;
 }
+body[data-election="mptc"] .hero-content { text-align: center; }
+body[data-election="mptc"] .hero-content .eyebrow { justify-content: center; }
+body[data-election="mptc"] .hero-content h1,
+body[data-election="mptc"] .hero-content .hero-intro { margin-left: auto; margin-right: auto; }
 .eyebrow, .section-kicker {
   display: flex; align-items: center; gap: 10px; font-size: 9px;
   font-weight: 700; letter-spacing: .17em; text-transform: uppercase;
@@ -351,6 +355,7 @@ body.telugu .election-title { font-family: var(--telugu); font-size: 13px; }
 .hub-hero-art .hero-place { bottom: 45px; }
 .hub-hero-art .hero-stamp { top: 69px; right: 32px; }
 .campaign-section { padding-top: 92px; padding-bottom: 86px; background: linear-gradient(118deg, var(--blue-dark), var(--blue) 72%, var(--blue-deep)); }
+body[data-election="mptc"] .campaign-section { padding-top: 46px; }
 .campaign-section .section-kicker { color: var(--white); margin-bottom: 25px; }
 .campaign-section .section-kicker span:first-of-type { color: var(--green-on-blue); }
 .campaign-section .fan-section, .about-copy .fan-section { color: var(--green-on-blue); }
@@ -811,6 +816,7 @@ body[data-election="mptc"] .candidate-photo {
   }
   .scroll-cue { gap: 6px; white-space: nowrap; }
   .campaign-section, .gallery-section { padding-top: 55px; padding-bottom: 58px; }
+  body[data-election="mptc"] .campaign-section { padding-top: 30px; }
   .elections-section { padding-top: 55px; padding-bottom: 62px; }
   .elections-heading { align-items: flex-start; flex-direction: column; gap: 13px; margin-bottom: 24px; }
   .elections-heading h2 { font-size: clamp(35px, 9.5vw, 43px); }
@@ -838,8 +844,13 @@ body[data-election="mptc"] .candidate-photo {
   .media-caption { padding: 16px; }
   .media-caption h3 { font-size: 15px; }
   .media-caption p { font-size: 12px; }
-  .about-section { grid-template-columns: 1fr; gap: 30px; padding-top: 60px; padding-bottom: 65px; }
-  .about-mark { width: min(210px, 65vw); }
+  .about-section { display: flex; flex-direction: column; align-items: stretch; gap: 22px; padding-top: 60px; padding-bottom: 65px; }
+  .about-copy { display: contents; }
+  .about-copy .section-kicker { order: 0; align-self: flex-start; margin: 0; justify-content: flex-start; text-align: left; }
+  .about-mark { order: 1; align-self: flex-start; width: min(210px, 65vw); }
+  .about-copy h2 { order: 2; width: 100%; text-align: left; }
+  .about-copy > p { order: 3; width: 100%; text-align: left; }
+  .about-copy .election-back-link { order: 4; }
   .fan-about { width: 74px; height: 74px; }
   .campaign-note, .gallery-heading > p, .about-copy > p { font-size: 14px; }
   .gallery-empty { min-height: 220px; padding: 22px 16px; }

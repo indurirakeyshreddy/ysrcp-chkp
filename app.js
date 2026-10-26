@@ -1,5 +1,8 @@
 const languageButton = document.querySelector(".language-toggle");
 const languageLabel = document.querySelector(".language-label");
+if (document.documentElement.lang === "te") {
+  document.body.classList.add("telugu");
+}
 let revealObserver;
 let videoObserver;
 let backgroundMusic;
