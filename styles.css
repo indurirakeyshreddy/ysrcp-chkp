@@ -363,6 +363,27 @@ body.telugu .election-title { font-family: var(--telugu); font-size: 13px; }
 .hub-hero-art .hero-stamp { top: 69px; right: 32px; }
 .campaign-section { padding-top: 92px; padding-bottom: 86px; background: linear-gradient(118deg, var(--blue-dark), var(--blue) 72%, var(--blue-deep)); }
 body[data-election="mptc"] .campaign-section { padding-top: 46px; }
+.poll-announcement {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  width: min(100%, 900px); margin: 0 auto 34px; padding: 18px 24px;
+  border: 1px solid rgba(120, 230, 168, .78); border-left: 5px solid var(--green-on-blue);
+  border-radius: 16px; background: linear-gradient(110deg, rgba(255,255,255,.14), rgba(255,255,255,.07));
+  box-shadow: 0 15px 34px rgba(2, 34, 63, .18);
+  color: var(--white);
+}
+.poll-announcement-date { display: grid; gap: 3px; }
+.poll-announcement-date span {
+  color: var(--green-on-blue); font-size: 10px; font-weight: 800;
+  letter-spacing: .14em; text-transform: uppercase;
+}
+.poll-announcement-date strong { font-size: clamp(19px, 2.4vw, 25px); line-height: 1.35; }
+.poll-announcement > p {
+  margin: 0; color: var(--white); font-size: 15px; font-weight: 700;
+  line-height: 1.7; text-align: right;
+}
+body.telugu .poll-announcement-date span,
+body.telugu .poll-announcement-date strong,
+body.telugu .poll-announcement > p { font-family: var(--telugu); letter-spacing: 0; }
 .campaign-section .section-kicker { color: var(--white); margin-bottom: 25px; }
 .campaign-section .section-kicker span:first-of-type { color: var(--green-on-blue); }
 .campaign-section .fan-section, .about-copy .fan-section { color: var(--green-on-blue); }
@@ -824,6 +845,12 @@ body[data-election="mptc"] .candidate-photo {
   .scroll-cue { gap: 6px; white-space: nowrap; }
   .campaign-section, .gallery-section { padding-top: 55px; padding-bottom: 58px; }
   body[data-election="mptc"] .campaign-section { padding-top: 30px; }
+  .poll-announcement {
+    flex-direction: column; align-items: flex-start; gap: 7px;
+    margin-bottom: 28px; padding: 16px 18px; border-radius: 14px;
+  }
+  .poll-announcement > p { text-align: left; font-size: 14px; }
+  .poll-announcement-date strong { font-size: 21px; }
   .elections-section { padding-top: 55px; padding-bottom: 62px; }
   .elections-heading { align-items: flex-start; flex-direction: column; gap: 13px; margin-bottom: 24px; }
   .elections-heading h2 { font-size: clamp(35px, 9.5vw, 43px); }
